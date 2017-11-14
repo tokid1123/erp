@@ -1,16 +1,13 @@
-server:
-  port: 8080
-  tomcat:
-    uri-encoding: UTF-8
 spring:
   # 数据源配置
   datasource:
     name: test
-    url: jdbc:mysql://192.168.0.5:3306/manage
+    url: jdbc:mysql://127.0.0.1:3306/manage
     username: root
-    password: 123456
+    password: 8688835
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.jdbc.Driver
+    filters: stat
     max-active: 20
     initial-size: 1
     max-wait: 60000
@@ -24,16 +21,8 @@ spring:
     pool-prepared-statements: true
     max-open-prepared-statements: 20
 
+server:
+  port: 8080
+  tomcat:
+    uri-encoding: UTF-8
 
-logging:
-  file: biggirlo
-  level:
-    ROOT: warn
-    org.springframework: info
-    org.springframework.web.servlet.view: info
-    org.springframework.web.servlet.mvc: info
-    io.undertow.request: info
-    com.biggirlo: debug
-    com.einwin.framework.mybatis: debug
-    com.github.pagehelper: TRACE
-    com.zaxxer.hikari: TRACE
