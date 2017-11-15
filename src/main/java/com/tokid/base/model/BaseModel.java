@@ -1,9 +1,17 @@
 package com.tokid.base.model;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import java.io.Serializable;
 import java.util.Date;
 
-public class BaseModel<T> {
+/**
+ * 基础类模型
+ */
+public class BaseModel implements Serializable{
 
+    @Id
+    @GeneratedValue
     private Long id;
 
     private String name;
@@ -12,7 +20,29 @@ public class BaseModel<T> {
 
     private Date updateTime;
 
-    private T code;
+    private Long createdBy;
+
+    private Long updatedBy;
+
+    private Integer state;
+
+    private String code;
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
+    }
 
     public Long getId() {
         return id;
@@ -46,11 +76,19 @@ public class BaseModel<T> {
         this.updateTime = updateTime;
     }
 
-    public T getCode() {
-        return code;
+    public Long getCreatedBy() {
+        return createdBy;
     }
 
-    public void setCode(T code) {
-        this.code = code;
+    public void setCreatedBy(Long createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public Long getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(Long updatedBy) {
+        this.updatedBy = updatedBy;
     }
 }
