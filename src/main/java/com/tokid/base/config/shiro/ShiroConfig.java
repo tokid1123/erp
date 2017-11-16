@@ -1,4 +1,4 @@
-package com.tokid.base.config;
+package com.tokid.base.config.shiro;
 /*
 * @Description: TODO
 * @author king
@@ -10,12 +10,16 @@ Apache Shiro 核心通过 Filter 来实现，就好像SpringMvc 通过DispachSer
 既然是使用 Filter 一般也就能猜到，是通过URL规则来进行过滤和权限校验，所以我们需要定义一系列关于URL的规则和访问权限。
 *
 */
+
+import com.tokid.base.config.shiro.filter.JWTOrAuthenticationFilter;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.servlet.Filter;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -34,7 +38,7 @@ public class ShiroConfig {
      *
      */
     @Bean
-    public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager){
+    public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager){
         System.out.println("ShiroConfiguration.shirFilter()");
         ShiroFilterFactoryBean shiroFilterFactoryBean  = new ShiroFilterFactoryBean();
 
@@ -61,6 +65,11 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setUnauthorizedUrl("/403");
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
+
+        //自定义过滤器
+        Map<String, Filter> filters = new HashMap<>();
+        filters.put("authc", new JWTOrAuthenticationFilter("http://localhost:10100"));
+        shiroFilterFactoryBean.setFilters(filters);
         return shiroFilterFactoryBean;
     }
 
@@ -69,6 +78,7 @@ public class ShiroConfig {
     public SecurityManager securityManager(){
         DefaultWebSecurityManager securityManager =  new DefaultWebSecurityManager();
         securityManager.setRealm(myShiroRealm());
+        securityManager.setSessionManager(new SessionManager());
         return securityManager;
     }
 
@@ -78,7 +88,6 @@ public class ShiroConfig {
      */
     @Bean
     public TKShiroRealm myShiroRealm(){
-        TKShiroRealm tKShiroRealm = new TKShiroRealm();
-        return tKShiroRealm;
+        return new TKShiroRealm();
     }
 }
