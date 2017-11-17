@@ -15,6 +15,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
+        <pagehelper.version>4.1.6</pagehelper.version>
     </properties>
 
     <parent>
@@ -62,11 +63,17 @@
             <version>1.4.0</version>
         </dependency>
 
-        <!-- thmleaf模板依赖. -->
         <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
+            <version>${pagehelper.version}</version>
+        </dependency>
+
+        <!-- thmleaf模板依赖. -->
+        <!--<dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
+        </dependency>-->
 
     </dependencies>
 
