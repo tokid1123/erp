@@ -1,4 +1,7 @@
 package com.tokid.base.service;
 
-public interface BaseService {
+import com.tokid.base.mapper.BaseMapper;
+
+public interface BaseService<MyMapper extends BaseMapper> {
+
 }
