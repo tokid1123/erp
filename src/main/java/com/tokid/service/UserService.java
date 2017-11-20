@@ -6,9 +6,14 @@ package com.tokid.service;
 */
 
 import com.tokid.base.service.BaseService;
+import com.tokid.mapper.UserMapper;
+import com.tokid.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UserService implements BaseService{
+public class UserService extends BaseService<User, Long>{
 
+    @Autowired
+    protected UserMapper mapper;
 }

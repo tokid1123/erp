@@ -6,16 +6,14 @@ package com.tokid.base.config.shiro.filter;
 */
 
 import com.tokid.base.config.TKConfig;
-import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@Component
-@Order(3)
+//@Component
+//@Order(3)
 public class TKFilter implements Filter {
 
     @Override
