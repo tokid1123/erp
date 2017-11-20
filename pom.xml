@@ -10,7 +10,7 @@
     <packaging>jar</packaging>
 
     <name>manage-test</name>
-    <description>随便玩玩</description>
+    <description>springboot-shiro</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -69,11 +69,16 @@
             <version>${pagehelper.version}</version>
         </dependency>
 
-        <!-- thmleaf模板依赖. -->
-        <!--<dependency>
+       <!-- <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>-->
+
+        <!-- 只需引入spring-boot-devtools 即可实现热部署 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+        </dependency>
 
     </dependencies>
 

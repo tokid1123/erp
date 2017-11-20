@@ -5,10 +5,12 @@ package com.tokid.model;
 * @date 2017/11/15 15:14
 */
 
+import com.tokid.base.model.BaseModel;
+
 import javax.persistence.Table;
 
 @Table(name="permission")
-public class Permission {
+public class Permission extends BaseModel {
 
     private static final long serialVersionUID = 1L;
 
