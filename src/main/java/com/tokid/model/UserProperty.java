@@ -9,13 +9,13 @@ import com.tokid.base.model.BaseModel;
 
 import javax.persistence.Table;
 
-@Table(name="user_role")
-public class UserRole extends BaseModel {
+@Table(name="user_property")
+public class UserProperty extends BaseModel {
     private static final long serialVersionUID = 1L;
 
     private Long userId;
 
-    private Long roleId;
+    private Long propertyId;
 
     public Long getUserId() {
         return userId;
@@ -25,11 +25,11 @@ public class UserRole extends BaseModel {
         this.userId = userId;
     }
 
-    public Long getRoleId() {
-        return roleId;
+    public Long getPropertyId() {
+        return propertyId;
     }
 
-    public void setRoleId(Long roleId) {
-        this.roleId = roleId;
+    public void setPropertyId(Long propertyId) {
+        this.propertyId = propertyId;
     }
 }

@@ -9,8 +9,8 @@ import com.tokid.base.model.BaseModel;
 
 import javax.persistence.Table;
 
-@Table(name="role")
-public class Role extends BaseModel{
+@Table(name="property")
+public class Property extends BaseModel{
 
     private static final long serialVersionUID = 1L;
 

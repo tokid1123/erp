@@ -29,8 +29,16 @@ public class Result<T> implements Serializable{
         return createResultForm(ResultEnum.success, result, messages);
     }
 
+    public static <T> Result<T> createSuccessResultForm(T result, ResultEnum resultEnum) {
+        return createResultForm(ResultEnum.success, result, resultEnum.getMsg());
+    }
+
     public static <T> Result<T> createErrorResultForm(T result, String messages) {
         return createResultForm(ResultEnum.error, result, messages);
+    }
+
+    public static <T> Result<T> createErrorResultForm(T result, ResultEnum resultEnum) {
+        return createResultForm(ResultEnum.error, result, resultEnum.getMsg());
     }
 
     public static <T> Result<T> createErrorResultForm(T result) {

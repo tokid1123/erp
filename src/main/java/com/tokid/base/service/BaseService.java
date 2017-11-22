@@ -1,4 +1,9 @@
 package com.tokid.base.service;
+/*
+* @Description: TODO
+* @author king
+* @date 2017/11/22 16:56
+*/
 
 import com.tokid.base.mapper.BaseMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,8 +64,8 @@ public abstract class BaseService<T, M> {
      * @param record
      * @return
      */
-    public int insert(T record){
-        return mapper.insert(record);
+    public Long insert(T record){
+        return Long.valueOf(mapper.insert(record));
     }
 
     /**
@@ -83,8 +88,8 @@ public abstract class BaseService<T, M> {
      * @param record
      * @return
      */
-    public int  updateAllById(T record){
-        return mapper.updateByPrimaryKey(record);
+    public Long  updateAllById(T record){
+        return Long.valueOf(mapper.updateByPrimaryKey(record));
     }
 
     /**
@@ -92,8 +97,8 @@ public abstract class BaseService<T, M> {
      * @param record
      * @return
      */
-    public int update(T record){
-        return mapper.updateByPrimaryKeySelective(record);
+    public Long update(T record){
+        return Long.valueOf(mapper.updateByPrimaryKeySelective(record));
     }
 
     /**

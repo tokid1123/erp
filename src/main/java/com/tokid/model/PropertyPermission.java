@@ -9,21 +9,21 @@ import com.tokid.base.model.BaseModel;
 
 import javax.persistence.Table;
 
-@Table(name="role_permission")
-public class RolePermission extends BaseModel{
+@Table(name="property_permission")
+public class PropertyPermission extends BaseModel{
 
     private static final long serialVersionUID = 1L;
 
-    private Long roleId;
+    private Long propertyId;
 
     private Long permissionId;
 
-    public Long getRoleId() {
-        return roleId;
+    public Long getPropertyId() {
+        return propertyId;
     }
 
-    public void setRoleId(Long roleId) {
-        this.roleId = roleId;
+    public void setPropertyId(Long propertyId) {
+        this.propertyId = propertyId;
     }
 
     public Long getPermissionId() {
