@@ -10,10 +10,12 @@ import com.tokid.mapper.UserMapper;
 import com.tokid.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class UserService extends BaseService<User, Long>{
 
     @Autowired
     protected UserMapper mapper;
+
 }

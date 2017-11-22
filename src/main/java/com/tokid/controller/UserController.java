@@ -8,11 +8,9 @@ package com.tokid.controller;
 import com.tokid.base.utils.Result;
 import com.tokid.base.utils.ResultEnum;
 import com.tokid.base.utils.StringUtils;
-import com.tokid.json.JsonRequestBody;
 import com.tokid.model.User;
 import com.tokid.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,10 +21,23 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @RequestMapping("/index")
+    public User index(){
+        User user = new User();
+        user.setUsername("username");
+        user.setName("name");
+        user.setPassword("password");
+        return user;
+    }
+
     @RequestMapping("/save")
-    public Object save(@RequestBody JsonRequestBody body) {
+    public Object save(User user) {
         Result<?> result = null;
-        User user = body.tryGet(User.class);
+//        User user = body.tryGet(User.class);
+        user = new User();
+        user.setName("name");
+        user.setUsername("username");
+        user.setPassword("password");
         try {
             if (StringUtils.isBlank(user.getName())) {
                 throw new Exception("name is null");

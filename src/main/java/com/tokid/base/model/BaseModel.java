@@ -18,9 +18,9 @@ public class BaseModel implements Serializable{
 
     private Date updateTime;
 
-    private Long createdBy;
+    private Long createBy;
 
-    private Long updatedBy;
+    private Long updateBy;
 
     private Integer state;
 
@@ -74,19 +74,19 @@ public class BaseModel implements Serializable{
         this.updateTime = updateTime;
     }
 
-    public Long getCreatedBy() {
-        return createdBy;
+    public Long getCreateBy() {
+        return createBy;
     }
 
-    public void setCreatedBy(Long createdBy) {
-        this.createdBy = createdBy;
+    public void setCreateBy(Long createBy) {
+        this.createBy = createBy;
     }
 
-    public Long getUpdatedBy() {
-        return updatedBy;
+    public Long getUpdateBy() {
+        return updateBy;
     }
 
-    public void setUpdatedBy(Long updatedBy) {
-        this.updatedBy = updatedBy;
+    public void setUpdateBy(Long updateBy) {
+        this.updateBy = updateBy;
     }
 }
