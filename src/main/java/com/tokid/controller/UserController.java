@@ -21,24 +21,16 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/index")
-    public User index(){
-        User user = new User();
-        user.setUsername("username");
-        user.setName("name");
-        user.setPassword("password");
-        return user;
-    }
-
     @RequestMapping("/save")
-    public Object save(User user) {
+    public Object save(Object o) {
         Result<?> result = null;
 //        User user = body.tryGet(User.class);
-        user = new User();
+        User user = new User();
         user.setName("name");
         user.setUsername("username");
         user.setPassword("password");
         try {
+            //业务验证放在service
             if (StringUtils.isBlank(user.getName())) {
                 throw new Exception("name is null");
             }
@@ -48,7 +40,7 @@ public class UserController {
             if (StringUtils.isBlank(user.getPassword())) {
                 throw new Exception("password is null");
             }
-           result = Result.createSuccessResultForm(userService.insert(user), ResultEnum.success);
+            result = Result.createSuccessResultForm(userService.insert(user), ResultEnum.success);
         } catch (Exception e) {
             e.printStackTrace();
             result = Result.createErrorResultForm(null, ResultEnum.error);
