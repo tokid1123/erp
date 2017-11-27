@@ -7,6 +7,7 @@ package com.tokid.service;
 
 import com.tokid.base.exception.ServiceException;
 import com.tokid.base.service.BaseService;
+import com.tokid.base.utils.SequenceUtils;
 import com.tokid.base.utils.UserLoginUtils;
 import com.tokid.mapper.UserMapper;
 import com.tokid.mapper.UserPropertyMapper;
@@ -32,17 +33,16 @@ public class UserService extends BaseService<User, Long> {
 
     public Long saveOrUpdate(User user) throws ServiceException {
         Long id = null;
-        if (user == null) {
-            throw new ServiceException("user is null");
-        }
         if (user.getId() != null) {//编辑状态
             user.setPassword(user.getPassword() == null ? UserLoginUtils.DEFAUTE_PASSWORD : user.getPassword());
-            user.setUpdateBy(UserLoginUtils.getCurrentUserId());
+            //user.setUpdateBy(UserLoginUtils.getCurrentUserId());
             user.setUpdateTime(new Date());
             id = this.update(user);
         } else {
-            user.setCreateBy(UserLoginUtils.getCurrentUserId());
+            //user.setCreateBy(UserLoginUtils.getCurrentUserId());
             user.setCreateTime(new Date());
+            user.setState(1);
+            user.setCode(SequenceUtils.getSecondUID("U"));
             id = this.insert(user);
         }
         return id;

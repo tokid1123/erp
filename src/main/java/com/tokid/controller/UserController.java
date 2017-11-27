@@ -1,6 +1,6 @@
 package com.tokid.controller;
 /*
-* @Description: TODO 获取用户分页列表没做完， 删除用户，用户角色关系没删除（批量删除用户关系）
+* @Description: TODO 获取用户分页列表没做完，保存删除用户，没保存删除用户角色关系（批量删除用户关系）  用户username， name相同要判断
 * @author king
 * @date 2017/11/20 15:59
 */
@@ -30,15 +30,15 @@ public class UserController {
         Result<?> result;
         try {
             //业务验证放在service
-            if (StringUtils.isBlank(user.getName())) {
+            if (user == null)
+                throw new BizException("user is null");
+            if (StringUtils.isBlank(user.getName()))
                 throw new BizException("name is null");
-            }
-            if (StringUtils.isBlank(user.getUsername())) {
+            if (StringUtils.isBlank(user.getUsername()))
                 throw new BizException("username is null");
-            }
-            if (StringUtils.isBlank(user.getPassword())) {
+            if (StringUtils.isBlank(user.getPassword()))
                 throw new BizException("password is null");
-            }
+
             result = Result.createSuccessResultForm(userService.saveOrUpdate(user), ResultEnum.success);
         } catch (Exception e) {
             e.printStackTrace();
@@ -51,9 +51,9 @@ public class UserController {
     public Object delete(@RequestBody Long id) {
         Result<?> result;
         try {
-            if (id == null) {
+            if (id == null)
                 throw new BizException("id is null");
-            }
+
             result = Result.createSuccessResultForm(userService.deletes(id), ResultEnum.success);
         } catch (Exception e) {
             e.printStackTrace();
@@ -62,14 +62,26 @@ public class UserController {
         return result;
     }
 
-    @RequestMapping(value = "/get")
+    @RequestMapping("/get")
     public Object getById(@RequestBody Long id) {
         Result<?> result;
         try {
-            if (id == null) {
+            if (id == null)
                 throw new BizException("id is null");
-            }
+
             result = Result.createSuccessResultForm(userService.selectById(id), ResultEnum.success);
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = Result.createErrorResultForm(ResultEnum.error);
+        }
+        return result;
+    }
+
+    @RequestMapping("/getUser")
+    public Object getUser(@RequestBody User user) {
+        Result<?> result;
+        try {
+            result = Result.createSuccessResultForm(userService.selectOne(user), ResultEnum.success);
         } catch (Exception e) {
             e.printStackTrace();
             result = Result.createErrorResultForm(ResultEnum.error);

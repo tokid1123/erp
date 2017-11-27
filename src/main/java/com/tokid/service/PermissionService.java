@@ -23,16 +23,14 @@ public class PermissionService extends BaseService<Permission, Long>{
 
     public Long saveOrUpdate(Permission permission) throws ServiceException {
         Long id ;
-            if (permission == null) {
-                throw new ServiceException("permission is null");
-            }
             if (permission.getId() != null) {//编辑状态
-                permission.setUpdateBy(UserLoginUtils.getCurrentUserId());
+                //permission.setUpdateBy(UserLoginUtils.getCurrentUserId());
                 permission.setUpdateTime(new Date());
                 id = this.update(permission);
             } else {
-                permission.setCreateBy(UserLoginUtils.getCurrentUserId());
+                //permission.setCreateBy(UserLoginUtils.getCurrentUserId());
                 permission.setCreateTime(new Date());
+                permission.setState(1);
                 id = this.insert(permission);
             }
         return id;

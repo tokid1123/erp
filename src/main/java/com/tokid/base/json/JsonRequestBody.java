@@ -1,4 +1,4 @@
-package com.tokid.json;
+package com.tokid.base.json;
 /*
 * @Description: TODO
 * @author king
