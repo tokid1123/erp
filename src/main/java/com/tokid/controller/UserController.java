@@ -6,17 +6,19 @@ package com.tokid.controller;
 */
 
 import com.tokid.base.exception.BizException;
+import com.tokid.base.json.JsonRequestBody;
+import com.tokid.base.utils.PageForm;
 import com.tokid.base.utils.Result;
 import com.tokid.base.utils.ResultEnum;
 import com.tokid.base.utils.StringUtils;
 import com.tokid.model.User;
+import com.tokid.model.UserProperty;
+import com.tokid.service.UserPropertyService;
 import com.tokid.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Map;
 
 @RequestMapping("/user")
 @RestController
@@ -24,12 +26,15 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserPropertyService userPropertyService;
 
     @RequestMapping("/saveOrUpdate")
-    public Object saveOrUpdate(@RequestBody User user) {
+    public Object saveOrUpdate(@RequestBody JsonRequestBody body) {
         Result<?> result;
         try {
             //业务验证放在service
+            User user = body.tryGet(User.class);
             if (user == null)
                 throw new BizException("user is null");
             if (StringUtils.isBlank(user.getName()))
@@ -48,9 +53,10 @@ public class UserController {
     }
 
     @RequestMapping("/delete")
-    public Object delete(@RequestBody Long id) {
+    public Object delete(@RequestBody JsonRequestBody body) {
         Result<?> result;
         try {
+            Long id = body.getLong("id");
             if (id == null)
                 throw new BizException("id is null");
 
@@ -63,9 +69,10 @@ public class UserController {
     }
 
     @RequestMapping("/get")
-    public Object getById(@RequestBody Long id) {
+    public Object getById(@RequestBody JsonRequestBody body) {
         Result<?> result;
         try {
+            Long id = body.getLong("id");
             if (id == null)
                 throw new BizException("id is null");
 
@@ -78,9 +85,10 @@ public class UserController {
     }
 
     @RequestMapping("/getUser")
-    public Object getUser(@RequestBody User user) {
+    public Object getUser(@RequestBody JsonRequestBody body) {
         Result<?> result;
         try {
+            User user = body.tryGet(User.class);
             result = Result.createSuccessResultForm(userService.selectOne(user), ResultEnum.success);
         } catch (Exception e) {
             e.printStackTrace();
@@ -91,10 +99,25 @@ public class UserController {
 
     //获取分页用户列表
     @RequestMapping("/getList")
-    public Object getList(@RequestBody Map<String, String> map) {
+    public Object getList(@RequestBody JsonRequestBody body) {
         Result<?> result;
         try {
-            result = Result.createSuccessResultForm(userService.selectAll());
+            User user = body.tryGet(User.class);
+            PageForm pageForm = body.getPageForm();
+            result = Result.createSuccessResultForm(userService.selectPage(pageForm, user), ResultEnum.success);
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = Result.createErrorResultForm(ResultEnum.error);
+        }
+        return result;
+    }
+
+    @RequestMapping("/setUserProperty")
+    public Object setUserProperty(@RequestBody JsonRequestBody body) {
+        Result<?> result;
+        try {
+            UserProperty userProperty = body.tryGet(UserProperty.class);
+            result = Result.createSuccessResultForm(userPropertyService.saveOrUpdate(userProperty), ResultEnum.success);
         } catch (Exception e) {
             e.printStackTrace();
             result = Result.createErrorResultForm(ResultEnum.error);

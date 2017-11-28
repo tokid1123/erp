@@ -7,6 +7,7 @@ package com.tokid.base.json;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.tokid.base.utils.PageForm;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
@@ -18,6 +19,8 @@ public class JsonRequestBody extends JSONObject {
      *
      */
     private static final long serialVersionUID = 1L;
+
+    private PageForm pageForm;
 
 
     public JsonRequestBody() {
@@ -66,6 +69,12 @@ public class JsonRequestBody extends JSONObject {
 
     public Map<String, Object> tryToMap() {
         return this;
+    }
+
+    public PageForm getPageForm() {
+        if (pageForm == null)
+            pageForm = this.tryGet("pageForm", PageForm.class);
+        return pageForm;
     }
 
 

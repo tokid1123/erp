@@ -5,7 +5,10 @@ package com.tokid.base.service;
 * @date 2017/11/22 16:56
 */
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.tokid.base.mapper.BaseMapper;
+import com.tokid.base.utils.PageForm;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -121,4 +124,20 @@ public abstract class BaseService<T, M> {
             count += mapper.delete(t);
         return count;
     }
+
+    /**
+     * 返回datables数据结果
+     * @param pageForm
+     */
+    public PageForm selectPage(PageForm pageForm, T obj){
+
+        //启动分页
+        PageHelper.startPage(pageForm.getStart(), pageForm.getLength());
+        PageInfo<T> page = new PageInfo<T>(mapper.select(obj));
+        pageForm.setRecordsTotal(page.getTotal());
+        pageForm.setRecordsFiltered(page.getTotal());
+        pageForm.setData( page.getList());
+        return pageForm;
+    }
+
 }

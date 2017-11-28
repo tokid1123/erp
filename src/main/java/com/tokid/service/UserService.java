@@ -9,9 +9,6 @@ import com.tokid.base.exception.ServiceException;
 import com.tokid.base.service.BaseService;
 import com.tokid.base.utils.SequenceUtils;
 import com.tokid.base.utils.UserLoginUtils;
-import com.tokid.mapper.UserMapper;
-import com.tokid.mapper.UserPropertyMapper;
-import com.tokid.model.Property;
 import com.tokid.model.User;
 import com.tokid.model.UserProperty;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +21,6 @@ import java.util.List;
 @Service
 public class UserService extends BaseService<User, Long> {
 
-    @Autowired
-    private UserMapper userMapper;
-    @Autowired
-    private UserPropertyMapper userPropertyMapper;
     @Autowired
     private UserPropertyService userPropertyService;
 
@@ -62,8 +55,6 @@ public class UserService extends BaseService<User, Long> {
         //userPropertyService.deleteObjs();
         //userPropertyMapper.delete()
         //删除用户和角色对应关系
-
-
         return 1L;
     }
 

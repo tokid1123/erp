@@ -5,15 +5,31 @@ package com.tokid.service;
 * @date 2017/11/24 11:36
 */
 
+import com.tokid.base.exception.ServiceException;
 import com.tokid.base.service.BaseService;
-import com.tokid.mapper.UserPropertyMapper;
 import com.tokid.model.UserProperty;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service
-public class UserPropertyService extends BaseService<UserProperty, Long>{
+import java.util.Date;
 
-    @Autowired
-    private UserPropertyMapper userPropertyMapper;
+@Service
+public class UserPropertyService extends BaseService<UserProperty, Long> {
+
+    public Long saveOrUpdate(UserProperty userProperty) throws ServiceException {
+        Long id = null;
+        UserProperty temp = new UserProperty();
+        temp.setUserId(userProperty.getUserId());
+        temp = this.selectOne(temp);
+        if (temp == null || temp.getId() == null) {
+            userProperty.setCreateTime(new Date());
+            //userProperty.setCreateBy(UserLoginUtils.getCurrentUserId());
+            id = this.insert(userProperty);
+        } else if (temp.getId() != null) {
+            //userProperty.setUpdateBy(UserLoginUtils.getCurrentUserId());
+            userProperty.setUpdateTime(new Date());
+            id = this.update(userProperty);
+        }
+        return id;
+    }
+
 }

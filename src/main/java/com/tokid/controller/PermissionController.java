@@ -49,9 +49,10 @@ public class PermissionController {
     }
 
     @RequestMapping("/delete")
-    public Object delete(@RequestBody Long id) {
+    public Object delete(@RequestBody JsonRequestBody body) {
         Result<?> result;
         try {
+            Long id = body.getLong("id");
             if (id == null)
                 throw new BizException("id is null");
 
@@ -64,9 +65,10 @@ public class PermissionController {
     }
 
     @RequestMapping("/get")
-    public Object getById(@RequestBody Long id) {
+    public Object getById(@RequestBody JsonRequestBody body) {
         Result<?> result;
         try {
+            Long id = body.getLong("id");
             if (id == null)
                 throw new BizException("id is null");
 
@@ -80,10 +82,11 @@ public class PermissionController {
 
     //获取分页用户列表
     @RequestMapping("/getList")
-    public Object getList(@RequestBody Map<String, String> map) {
+    public Object getList(@RequestBody JsonRequestBody body) {
         Result<?> result;
         try {
-            result = Result.createSuccessResultForm(permissionService.selectAll());
+            Permission permission = body.tryGet(Permission.class);
+            result = Result.createSuccessResultForm(permissionService.selectPage(body.getPageForm(), permission), ResultEnum.success);
         } catch (Exception e) {
             e.printStackTrace();
             result = Result.createErrorResultForm(ResultEnum.error);

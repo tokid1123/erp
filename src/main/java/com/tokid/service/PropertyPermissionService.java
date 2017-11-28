@@ -6,14 +6,29 @@ package com.tokid.service;
 */
 
 import com.tokid.base.service.BaseService;
-import com.tokid.mapper.PropertyPermissionMapper;
 import com.tokid.model.PropertyPermission;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
-public class PropertyPermissionService extends BaseService<PropertyPermission, Long>{
+public class PropertyPermissionService extends BaseService<PropertyPermission, Long> {
 
-    @Autowired
-    private PropertyPermissionMapper propertyPermissionMapper;
+    @Transactional
+    public Integer saveList(Long propertyId, List<PropertyPermission> list) {
+        PropertyPermission propertyPermission = new PropertyPermission();
+        propertyPermission.setPropertyId(propertyId);
+        List<PropertyPermission> selectList = this.select(propertyPermission);
+        Long[] ids = new Long[selectList.size()];
+        for (int i = 0; i < selectList.size(); i++) {
+            ids[i] = selectList.get(i).getId();
+        }
+        this.deletes(ids);
+        for (PropertyPermission permission : list) {
+            permission.setPropertyId(propertyId);
+        }
+        return this.insertList(list);
+    }
+
 }
