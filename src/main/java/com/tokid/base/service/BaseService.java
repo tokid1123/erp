@@ -129,11 +129,12 @@ public abstract class BaseService<T, M> {
      * 返回datables数据结果
      * @param pageForm
      */
-    public PageForm selectPage(PageForm pageForm, T obj){
+    public PageForm selectPage(PageForm pageForm, T record){
 
-        //启动分页
+        //启动分页后，再操作数据库，查不到数据
+        List<T> list = this.select(record);
         PageHelper.startPage(pageForm.getStart(), pageForm.getLength());
-        PageInfo<T> page = new PageInfo<T>(mapper.select(obj));
+        PageInfo<T> page = new PageInfo<>(list);
         pageForm.setRecordsTotal(page.getTotal());
         pageForm.setRecordsFiltered(page.getTotal());
         pageForm.setData( page.getList());
