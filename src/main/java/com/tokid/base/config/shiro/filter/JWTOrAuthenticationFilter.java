@@ -1,6 +1,6 @@
 package com.tokid.base.config.shiro.filter;
 /*
-* @Description: TODO
+* @Description:
 * @author king
 * @date 2017/11/16 16:00
 */
