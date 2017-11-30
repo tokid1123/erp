@@ -13,10 +13,9 @@ import com.tokid.model.User;
 import com.tokid.model.UserProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Service
 public class UserService extends BaseService<User, Long> {
@@ -41,21 +40,16 @@ public class UserService extends BaseService<User, Long> {
         return id;
     }
 
-    public Long delete(Long[] ids) throws ServiceException {
-        if (ids == null) {
-            throw new ServiceException("ids is null");
+    @Transactional
+    public Object delete(Long userId) {
+        int count = this.deleteByPrimaryKey(userId);//删除用户
+        //删除用户角色关系
+        UserProperty userProperty = new UserProperty();
+        userProperty.setUserId(userId);
+        userProperty = userPropertyService.selectOne(userProperty);
+        if (userProperty.getId() != null) {
+            count = userPropertyService.delete(userProperty);
         }
-        this.deletes(ids);
-        List<UserProperty> properties = new ArrayList<>();
-        for (long id : ids) {
-            UserProperty userProperty = new UserProperty();
-            userProperty.setUserId(id);
-            properties.add(userProperty);
-        }
-        //userPropertyService.deleteObjs();
-        //userPropertyMapper.delete()
-        //删除用户和角色对应关系
-        return 1L;
+        return count;
     }
-
 }

@@ -1,6 +1,6 @@
 package com.tokid.base.service;
 /*
-* @Description: TODO
+* @Description:
 * @author king
 * @date 2017/11/22 16:56
 */
@@ -105,23 +105,47 @@ public abstract class BaseService<T, M> {
     }
 
     /**
-     * 删除 支持批量
-     * @param args
+     * 单个删除
+     * @param arg 根据id删除对应的数据
      * @return
      */
-    public int deletes(M... args){
-        //return system.delete(args);
+    public int deleteByPrimaryKey(M arg){
+        int count = 0;
+            count += mapper.deleteByPrimaryKey(arg);
+        return count;
+    }
+
+    /**
+     * 根据id批量删除
+     * @param args 删除list的id
+     * @return
+     */
+    public int deleteByPrimaryKeys(List<M> args){
         int count = 0;
         for(M m : args)
             count += mapper.deleteByPrimaryKey(m);
         return count;
     }
 
-    public int deleteObjs(T... args){
-        //return system.delete(args);
+    /**
+     * 批量删除
+     * @param args 删除的list
+     * @return 删除的个数
+     */
+    public int deleteList(List<T> args){
         int count = 0;
-        for(T t : args)
-            count += mapper.delete(t);
+        for (T arg : args)
+            count += mapper.delete(arg);
+        return count;
+    }
+
+    /**
+     * 单个删除
+     * @param arg 要删除的entity
+     */
+    public int delete(T arg){
+        int count = 0;
+            count += mapper.delete(arg);
         return count;
     }
 

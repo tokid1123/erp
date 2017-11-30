@@ -1,6 +1,6 @@
 package com.tokid.service;
 /*
-* @Description: TODO
+* @Description:
 * @author king
 * @date 2017/11/24 14:44
 */
@@ -20,11 +20,9 @@ public class PropertyPermissionService extends BaseService<PropertyPermission, L
         PropertyPermission propertyPermission = new PropertyPermission();
         propertyPermission.setPropertyId(propertyId);
         List<PropertyPermission> selectList = this.select(propertyPermission);
-        Long[] ids = new Long[selectList.size()];
-        for (int i = 0; i < selectList.size(); i++) {
-            ids[i] = selectList.get(i).getId();
+        if (selectList != null && selectList.size() > 0) {
+            this.deleteList(selectList);
         }
-        this.deletes(ids);
         for (PropertyPermission permission : list) {
             permission.setPropertyId(propertyId);
         }

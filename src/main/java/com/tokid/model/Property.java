@@ -1,6 +1,6 @@
 package com.tokid.model;
 /*
-* @Description: TODO
+* @Description:
 * @author king
 * @date 2017/11/15 15:11
 */

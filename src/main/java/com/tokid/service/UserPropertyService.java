@@ -1,6 +1,6 @@
 package com.tokid.service;
 /*
-* @Description: TODO
+* @Description:
 * @author king
 * @date 2017/11/24 11:36
 */
@@ -26,8 +26,9 @@ public class UserPropertyService extends BaseService<UserProperty, Long> {
             id = this.insert(userProperty);
         } else if (temp.getId() != null) {
             //userProperty.setUpdateBy(UserLoginUtils.getCurrentUserId());
-            userProperty.setUpdateTime(new Date());
-            id = this.update(userProperty);
+            temp.setUpdateTime(new Date());
+            temp.setPropertyId(userProperty.getPropertyId());
+            id = this.update(temp);
         }
         return id;
     }

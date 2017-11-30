@@ -1,6 +1,6 @@
 package com.tokid.base.exception;
 /*
-* @Description: TODO
+* @Description:
 * @author king
 * @date 2017/11/24 14:52
 */

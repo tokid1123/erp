@@ -1,6 +1,6 @@
 package com.tokid.base.json;
 /*
-* @Description: TODO
+* @Description:
 * @author king
 * @date 2017/11/22 15:07
 */

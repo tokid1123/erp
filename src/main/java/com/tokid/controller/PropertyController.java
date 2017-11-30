@@ -1,6 +1,6 @@
 package com.tokid.controller;
 /*
-* @Description: TODO 分页没有完成 角色创建要关联权限，删除同
+* @Description: done
 * @author king
 * @date 2017/11/24 14:41
 */
@@ -60,7 +60,7 @@ public class PropertyController {
             if (id == null)
                 throw new BizException("id is null");
 
-            result = Result.createSuccessResultForm(propertyService.deletes(id), ResultEnum.success);
+            result = Result.createSuccessResultForm(propertyService.deleteById(id), ResultEnum.success);
         } catch (Exception e) {
             e.printStackTrace();
             result = Result.createErrorResultForm(ResultEnum.error);
@@ -105,8 +105,14 @@ public class PropertyController {
     public Object setPropertyPermissions(@RequestBody JsonRequestBody body) {
         Result<?> result;
         try {
-            Long propertyId = body.getLong("userId");
+            Long propertyId = body.getLong("propertyId");
             List<PropertyPermission> list = body.getList("list", PropertyPermission.class);
+            if (propertyId == null) {
+                throw new BizException("property id is null");
+            }
+            if (list == null || list.size() <= 0) {
+                throw new BizException("list is null");
+            }
             result = Result.createSuccessResultForm(propertyPermissionService.saveList(propertyId, list), ResultEnum.success);
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,6 +1,6 @@
 package com.tokid.controller;
 /*
-* @Description: TODO 获取分页没有完成
+* @Description:done
 * @author king
 * @date 2017/11/24 14:44
 */
@@ -31,10 +31,11 @@ public class PermissionController {
         Result<?> result;
         try {
             Permission permission = body.tryGet(Permission.class);
-            if (permission == null)
-                throw new BizException("permission entity is null");
-            if (StringUtils.isBlank(permission.getPermission()))
+            if (permission == null) {
                 throw new BizException("permission is null");
+            }
+            if (StringUtils.isBlank(permission.getName()))
+                throw new BizException("name is null");
             if (StringUtils.isBlank(permission.getResourceType()))
                 throw new BizException("resourceType is null");
             if (StringUtils.isBlank(permission.getUrl()))
@@ -56,7 +57,7 @@ public class PermissionController {
             if (id == null)
                 throw new BizException("id is null");
 
-            result = Result.createSuccessResultForm(permissionService.deletes(id), ResultEnum.success);
+            result = Result.createSuccessResultForm(permissionService.deleteByPrimaryKey(id), ResultEnum.success);
         } catch (Exception e) {
             e.printStackTrace();
             result = Result.createErrorResultForm(ResultEnum.error);

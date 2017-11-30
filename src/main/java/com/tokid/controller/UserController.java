@@ -1,6 +1,6 @@
 package com.tokid.controller;
 /*
-* @Description: TODO 获取用户分页列表没做完，保存删除用户，没保存删除用户角色关系（批量删除用户关系）  用户username， name相同要判断
+* @Description: TODO  用户username， name相同要判断唯一
 * @author king
 * @date 2017/11/20 15:59
 */
@@ -60,7 +60,7 @@ public class UserController {
             if (id == null)
                 throw new BizException("id is null");
 
-            result = Result.createSuccessResultForm(userService.deletes(id), ResultEnum.success);
+            result = Result.createSuccessResultForm(userService.delete(id), ResultEnum.success);
         } catch (Exception e) {
             e.printStackTrace();
             result = Result.createErrorResultForm(ResultEnum.error);
@@ -117,6 +117,12 @@ public class UserController {
         Result<?> result;
         try {
             UserProperty userProperty = body.tryGet(UserProperty.class);
+            if (userProperty.getUserId() == null) {
+                throw new BizException("user id is null");
+            }
+            if (userProperty.getPropertyId() == null) {
+                throw new BizException("property id is null");
+            }
             result = Result.createSuccessResultForm(userPropertyService.saveOrUpdate(userProperty), ResultEnum.success);
         } catch (Exception e) {
             e.printStackTrace();

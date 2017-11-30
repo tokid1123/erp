@@ -1,6 +1,6 @@
 package com.tokid.mapper;
 /*
-* @Description: TODO
+* @Description:
 * @author king
 * @date 2017/11/23 9:04
 */
