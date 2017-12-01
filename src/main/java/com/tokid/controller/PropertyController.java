@@ -6,7 +6,7 @@ package com.tokid.controller;
 */
 
 import com.tokid.base.exception.BizException;
-import com.tokid.base.json.JsonRequestBody;
+import com.tokid.base.customUtils.JsonRequestBody;
 import com.tokid.base.customUtils.Result;
 import com.tokid.base.customUtils.ResultEnum;
 import com.tokid.base.utils.StringUtils;

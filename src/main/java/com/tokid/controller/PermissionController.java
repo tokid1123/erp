@@ -9,7 +9,7 @@ import com.tokid.base.exception.BizException;
 import com.tokid.base.customUtils.Result;
 import com.tokid.base.customUtils.ResultEnum;
 import com.tokid.base.utils.StringUtils;
-import com.tokid.base.json.JsonRequestBody;
+import com.tokid.base.customUtils.JsonRequestBody;
 import com.tokid.model.Permission;
 import com.tokid.service.PermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
