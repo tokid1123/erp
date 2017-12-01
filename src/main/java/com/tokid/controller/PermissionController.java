@@ -6,8 +6,8 @@ package com.tokid.controller;
 */
 
 import com.tokid.base.exception.BizException;
-import com.tokid.base.utils.Result;
-import com.tokid.base.utils.ResultEnum;
+import com.tokid.base.customUtils.Result;
+import com.tokid.base.customUtils.ResultEnum;
 import com.tokid.base.utils.StringUtils;
 import com.tokid.base.json.JsonRequestBody;
 import com.tokid.model.Permission;
@@ -16,8 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Map;
 
 @RequestMapping("/permission")
 @RestController

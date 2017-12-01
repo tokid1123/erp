@@ -8,7 +8,7 @@ package com.tokid.service;
 import com.tokid.base.exception.ServiceException;
 import com.tokid.base.service.BaseService;
 import com.tokid.base.utils.SequenceUtils;
-import com.tokid.base.utils.UserLoginUtils;
+import com.tokid.base.customUtils.UserLoginUtils;
 import com.tokid.model.User;
 import com.tokid.model.UserProperty;
 import org.springframework.beans.factory.annotation.Autowired;

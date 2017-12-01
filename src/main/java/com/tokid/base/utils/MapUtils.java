@@ -536,16 +536,16 @@ public class MapUtils extends org.apache.commons.collections.MapUtils {
      * @return
      *  抛ParseException
      */
-    //public static <K, V> Date getDate(final Map<K, V> map, final Object key) {
-    //    if (map != null) {
-    //        Object answer = map.get(key);
-    //        if (answer != null) {
-    //            return TimeUtil.trueTime(answer);
-    //        }
-    //    }
-    //    return null;
-    //
-    //}
+    public static <K, V> Date getDate(final Map<K, V> map, final Object key) {
+        if (map != null) {
+            Object answer = map.get(key);
+            if (answer != null) {
+                return TimeUtil.trueTime(answer);
+            }
+        }
+        return null;
+
+    }
 
     /**
      * 添加对象的时候，如果存在K则会自动生成一个List

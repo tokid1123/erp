@@ -1,6 +1,6 @@
 package com.tokid.base.config.mybatis;
 
-import com.tokid.base.utils.YamlLoadUtil;
+import com.tokid.base.customUtils.YamlLoadUtil;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

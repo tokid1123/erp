@@ -7,8 +7,8 @@ package com.tokid.controller;
 
 import com.tokid.base.exception.BizException;
 import com.tokid.base.json.JsonRequestBody;
-import com.tokid.base.utils.Result;
-import com.tokid.base.utils.ResultEnum;
+import com.tokid.base.customUtils.Result;
+import com.tokid.base.customUtils.ResultEnum;
 import com.tokid.base.utils.StringUtils;
 import com.tokid.model.Property;
 import com.tokid.model.PropertyPermission;

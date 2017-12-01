@@ -1,4 +1,4 @@
-package com.tokid.base.utils;
+package com.tokid.base.customUtils;
 /*
 * @Description:
 * @author king

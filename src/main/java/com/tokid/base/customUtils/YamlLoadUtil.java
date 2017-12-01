@@ -1,4 +1,4 @@
-package com.tokid.base.utils;
+package com.tokid.base.customUtils;
 
 import org.springframework.boot.env.YamlPropertySourceLoader;
 import org.springframework.core.env.PropertySource;

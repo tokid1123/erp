@@ -1,6 +1,6 @@
 package com.tokid.base.config;
 
-import com.tokid.base.utils.YamlLoadUtil;
+import com.tokid.base.customUtils.YamlLoadUtil;
 import org.springframework.core.env.PropertySource;
 
 /*

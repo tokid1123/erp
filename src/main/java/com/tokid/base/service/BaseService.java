@@ -8,7 +8,7 @@ package com.tokid.base.service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.tokid.base.mapper.BaseMapper;
-import com.tokid.base.utils.PageForm;
+import com.tokid.base.customUtils.PageForm;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;

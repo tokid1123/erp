@@ -7,7 +7,6 @@ package com.tokid.service;
 
 import com.tokid.base.exception.ServiceException;
 import com.tokid.base.service.BaseService;
-import com.tokid.base.utils.UserLoginUtils;
 import com.tokid.mapper.PermissionMapper;
 import com.tokid.model.Permission;
 import org.springframework.beans.factory.annotation.Autowired;
