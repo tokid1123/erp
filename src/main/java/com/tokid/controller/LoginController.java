@@ -1,14 +1,16 @@
 package com.tokid.controller;
 /*
-* @Description: TODO 登录没写
+* @Description:
 * @author king
 * @date 2017/12/13 11:13
 */
 
 import com.tokid.base.customUtils.Result;
 import com.tokid.base.customUtils.ResultEnum;
+import com.tokid.model.User;
 import com.tokid.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,13 +24,12 @@ public class LoginController {
      * 登录
      */
     @RequestMapping("/login")
-    public Object login() {
+    public Object login(@RequestBody User user) {
         try {
-            userService.login();
-            return Result.createSuccessResultForm(ResultEnum.success);
+            return userService.login(user);
         } catch (Exception e) {
             e.printStackTrace();
-            return Result.createErrorResultForm(ResultEnum.error);
+            return Result.createErrorResultForm(ResultEnum.ERROR);
         }
     }
 
@@ -39,10 +40,10 @@ public class LoginController {
     public Object logout() {
         try {
             userService.logout();
-            return Result.createSuccessResultForm(ResultEnum.success);
+            return Result.createSuccessResultForm(ResultEnum.SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
-            return Result.createErrorResultForm(ResultEnum.error);
+            return Result.createErrorResultForm(ResultEnum.ERROR);
         }
     }
 

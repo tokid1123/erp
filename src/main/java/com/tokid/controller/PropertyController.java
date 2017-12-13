@@ -44,10 +44,10 @@ public class PropertyController {
             if (StringUtils.isBlank(property.getDescription()))
                 throw new BizException("description is null");
 
-            result = Result.createSuccessResultForm(propertyService.saveOrUpdate(property), ResultEnum.success);
+            result = Result.createSuccessResultForm(propertyService.saveOrUpdate(property), ResultEnum.SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
-            result = Result.createErrorResultForm(ResultEnum.error);
+            result = Result.createErrorResultForm(ResultEnum.ERROR);
         }
         return result;
     }
@@ -60,10 +60,10 @@ public class PropertyController {
             if (id == null)
                 throw new BizException("id is null");
 
-            result = Result.createSuccessResultForm(propertyService.deleteById(id), ResultEnum.success);
+            result = Result.createSuccessResultForm(propertyService.deleteById(id), ResultEnum.SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
-            result = Result.createErrorResultForm(ResultEnum.error);
+            result = Result.createErrorResultForm(ResultEnum.ERROR);
         }
         return result;
     }
@@ -76,10 +76,10 @@ public class PropertyController {
             if (id == null)
                 throw new BizException("id is null");
 
-            result = Result.createSuccessResultForm(propertyService.selectById(id), ResultEnum.success);
+            result = Result.createSuccessResultForm(propertyService.selectById(id), ResultEnum.SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
-            result = Result.createErrorResultForm(ResultEnum.error);
+            result = Result.createErrorResultForm(ResultEnum.ERROR);
         }
         return result;
     }
@@ -90,10 +90,10 @@ public class PropertyController {
         Result<?> result;
         try {
             Property property = body.tryGet(Property.class);
-            result = Result.createSuccessResultForm(propertyService.selectPage(body.getPageForm(), property), ResultEnum.success);
+            result = Result.createSuccessResultForm(propertyService.selectPage(body.getPageForm(), property), ResultEnum.SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
-            result = Result.createErrorResultForm(ResultEnum.error);
+            result = Result.createErrorResultForm(ResultEnum.ERROR);
         }
         return result;
     }
@@ -113,10 +113,10 @@ public class PropertyController {
             if (list == null || list.size() <= 0) {
                 throw new BizException("list is null");
             }
-            result = Result.createSuccessResultForm(propertyPermissionService.saveList(propertyId, list), ResultEnum.success);
+            result = Result.createSuccessResultForm(propertyPermissionService.saveList(propertyId, list), ResultEnum.SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
-            result = Result.createErrorResultForm(ResultEnum.error);
+            result = Result.createErrorResultForm(ResultEnum.ERROR);
         }
         return result;
     }

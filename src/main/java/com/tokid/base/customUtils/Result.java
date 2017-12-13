@@ -26,27 +26,27 @@ public class Result<T> implements Serializable{
     }
 
     public static <T> Result<T> createSuccessResultForm(T result, String messages) {
-        return createResultForm(ResultEnum.success, result, messages);
+        return createResultForm(ResultEnum.SUCCESS, result, messages);
     }
 
     public static <T> Result<T> createSuccessResultForm(T result, ResultEnum resultEnum) {
-        return createResultForm(ResultEnum.success, result, resultEnum.getMsg());
+        return createResultForm(ResultEnum.SUCCESS, result, resultEnum.getMsg());
     }
 
     public static <T> Result<T> createErrorResultForm(T result, String messages) {
-        return createResultForm(ResultEnum.error, result, messages);
+        return createResultForm(ResultEnum.ERROR, result, messages);
     }
 
     public static <T> Result<T> createErrorResultForm(T result, ResultEnum resultEnum) {
-        return createResultForm(ResultEnum.error, result, resultEnum.getMsg());
+        return createResultForm(ResultEnum.ERROR, result, resultEnum.getMsg());
     }
 
     public static <T> Result<T> createErrorResultForm(T result) {
-        return createResultForm(ResultEnum.error, result);
+        return createResultForm(ResultEnum.ERROR, result);
     }
 
     public static <T> Result<T> createSuccessResultForm(T result) {
-        return createResultForm(ResultEnum.success, result);
+        return createResultForm(ResultEnum.SUCCESS, result);
     }
 
     public Result() {

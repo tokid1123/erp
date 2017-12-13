@@ -39,10 +39,10 @@ public class PermissionController {
             if (StringUtils.isBlank(permission.getUrl()))
                 throw new BizException("url is null");
 
-            result = Result.createSuccessResultForm(permissionService.saveOrUpdate(permission), ResultEnum.success);
+            result = Result.createSuccessResultForm(permissionService.saveOrUpdate(permission), ResultEnum.SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
-            result = Result.createErrorResultForm(ResultEnum.error);
+            result = Result.createErrorResultForm(ResultEnum.ERROR);
         }
         return result;
     }
@@ -55,10 +55,10 @@ public class PermissionController {
             if (id == null)
                 throw new BizException("id is null");
 
-            result = Result.createSuccessResultForm(permissionService.deleteByPrimaryKey(id), ResultEnum.success);
+            result = Result.createSuccessResultForm(permissionService.deleteByPrimaryKey(id), ResultEnum.SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
-            result = Result.createErrorResultForm(ResultEnum.error);
+            result = Result.createErrorResultForm(ResultEnum.ERROR);
         }
         return result;
     }
@@ -71,10 +71,10 @@ public class PermissionController {
             if (id == null)
                 throw new BizException("id is null");
 
-            result = Result.createSuccessResultForm(permissionService.selectById(id), ResultEnum.success);
+            result = Result.createSuccessResultForm(permissionService.selectById(id), ResultEnum.SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
-            result = Result.createErrorResultForm(ResultEnum.error);
+            result = Result.createErrorResultForm(ResultEnum.ERROR);
         }
         return result;
     }
@@ -85,10 +85,10 @@ public class PermissionController {
         Result<?> result;
         try {
             Permission permission = body.tryGet(Permission.class);
-            result = Result.createSuccessResultForm(permissionService.selectPage(body.getPageForm(), permission), ResultEnum.success);
+            result = Result.createSuccessResultForm(permissionService.selectPage(body.getPageForm(), permission), ResultEnum.SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
-            result = Result.createErrorResultForm(ResultEnum.error);
+            result = Result.createErrorResultForm(ResultEnum.ERROR);
         }
         return result;
     }

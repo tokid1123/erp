@@ -44,10 +44,10 @@ public class UserController {
             if (StringUtils.isBlank(user.getPassword()))
                 throw new BizException("password is null");
 
-            result = Result.createSuccessResultForm(userService.saveOrUpdate(user), ResultEnum.success);
+            result = Result.createSuccessResultForm(userService.saveOrUpdate(user), ResultEnum.SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
-            result = Result.createErrorResultForm(ResultEnum.error);
+            result = Result.createErrorResultForm(ResultEnum.ERROR);
         }
         return result;
     }
@@ -60,10 +60,10 @@ public class UserController {
             if (id == null)
                 throw new BizException("id is null");
 
-            result = Result.createSuccessResultForm(userService.delete(id), ResultEnum.success);
+            result = Result.createSuccessResultForm(userService.delete(id), ResultEnum.SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
-            result = Result.createErrorResultForm(ResultEnum.error);
+            result = Result.createErrorResultForm(ResultEnum.ERROR);
         }
         return result;
     }
@@ -76,10 +76,10 @@ public class UserController {
             if (id == null)
                 throw new BizException("id is null");
 
-            result = Result.createSuccessResultForm(userService.selectById(id), ResultEnum.success);
+            result = Result.createSuccessResultForm(userService.selectById(id), ResultEnum.SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
-            result = Result.createErrorResultForm(ResultEnum.error);
+            result = Result.createErrorResultForm(ResultEnum.ERROR);
         }
         return result;
     }
@@ -89,10 +89,10 @@ public class UserController {
         Result<?> result;
         try {
             User user = body.tryGet(User.class);
-            result = Result.createSuccessResultForm(userService.selectOne(user), ResultEnum.success);
+            result = Result.createSuccessResultForm(userService.selectOne(user), ResultEnum.SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
-            result = Result.createErrorResultForm(ResultEnum.error);
+            result = Result.createErrorResultForm(ResultEnum.ERROR);
         }
         return result;
     }
@@ -104,10 +104,10 @@ public class UserController {
         try {
             User user = body.tryGet(User.class);
             PageForm pageForm = body.getPageForm();
-            result = Result.createSuccessResultForm(userService.selectPage(pageForm, user), ResultEnum.success);
+            result = Result.createSuccessResultForm(userService.selectPage(pageForm, user), ResultEnum.SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
-            result = Result.createErrorResultForm(ResultEnum.error);
+            result = Result.createErrorResultForm(ResultEnum.ERROR);
         }
         return result;
     }
@@ -123,10 +123,10 @@ public class UserController {
             if (userProperty.getPropertyId() == null) {
                 throw new BizException("property id is null");
             }
-            result = Result.createSuccessResultForm(userPropertyService.saveOrUpdate(userProperty), ResultEnum.success);
+            result = Result.createSuccessResultForm(userPropertyService.saveOrUpdate(userProperty), ResultEnum.SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
-            result = Result.createErrorResultForm(ResultEnum.error);
+            result = Result.createErrorResultForm(ResultEnum.ERROR);
         }
         return result;
     }

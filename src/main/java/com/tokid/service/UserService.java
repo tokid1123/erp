@@ -1,17 +1,21 @@
 package com.tokid.service;
 /*
-* @Description: TODO 登录没写
+* @Description: TODO 登录完需要保存用户的操作权限
 * @author king
 * @date 2017/11/19 11:05
 */
 
+import com.tokid.base.customUtils.Result;
+import com.tokid.base.customUtils.ResultEnum;
 import com.tokid.base.customUtils.UserLoginUtils;
 import com.tokid.base.exception.ServiceException;
+import com.tokid.base.model.LoginUser;
 import com.tokid.base.service.BaseService;
 import com.tokid.base.utils.SequenceUtils;
 import com.tokid.model.User;
 import com.tokid.model.UserProperty;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -57,6 +61,7 @@ public class UserService extends BaseService<User, Long> {
 
     /**
      * 退出登录
+     *
      * @return
      */
     public void logout() {
@@ -64,8 +69,36 @@ public class UserService extends BaseService<User, Long> {
         subject.logout(); // 退出
     }
 
-    public void login() {
-        
+    @Transactional
+    public Result login(User user) {
+        //判断是否为空
+        if (user == null || user.getUsername() == null || "".equals(user.getUsername()) || user.getPassword() == null || "".equals(user.getPassword()))
+            return Result.createErrorResultForm(ResultEnum.LOGIN_ERROR_UN_EXIST_NAME_PASSWORD);
 
+        //查询
+        User userSearch = new User();
+        userSearch.setUsername(user.getUsername());
+        userSearch.setPassword(user.getPassword());
+        userSearch.setState(1);
+
+        User dataUser = selectOne(userSearch);
+        if (dataUser == null)
+            return Result.createErrorResultForm(ResultEnum.LOGIN_ERROR_FALIE_NAME_PASSWORD);
+
+        //获取token
+        UsernamePasswordToken token = new UsernamePasswordToken(userSearch.getUsername(), userSearch.getPassword());
+
+        Subject subject = SecurityUtils.getSubject(); // 获取Subject单例对象
+        subject.login(token); // 登陆
+        //设置session对象
+        LoginUser loginUser = new LoginUser();
+        loginUser.setUser(dataUser);
+        loginUser.setLoginTime(new Date());
+
+        //设置缓存
+        subject.getSession().setAttribute(UserLoginUtils.LOGIN_USER_SESSION_NAME,loginUser);
+
+
+        return Result.createSuccessResultForm(subject.getSession().getId(), ResultEnum.SUCCESS);
     }
 }
