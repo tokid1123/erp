@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class PermissionService extends BaseService<Permission, Long>{
@@ -33,5 +35,9 @@ public class PermissionService extends BaseService<Permission, Long>{
                 id = this.insert(permission);
             }
         return id;
+    }
+
+    public List<Permission> getAllPermissions(Map<String, Object> map) throws ServiceException {
+        return permissionMapper.getAllPermissions(map);
     }
 }

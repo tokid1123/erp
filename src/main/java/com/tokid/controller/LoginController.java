@@ -29,7 +29,7 @@ public class LoginController {
             return userService.login(user);
         } catch (Exception e) {
             e.printStackTrace();
-            return Result.createErrorResultForm(ResultEnum.ERROR);
+            return Result.createErrorResultForm(null,ResultEnum.ERROR);
         }
     }
 

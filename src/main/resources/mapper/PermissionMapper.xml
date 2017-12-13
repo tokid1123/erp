@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tokid.mapper.PermissionMapper">
+
+    <select id="getAllPermissions" parameterType="map" resultType="com.tokid.model.Permission">
+        select p.* from user_property up
+        LEFT JOIN property_permission pp on up.property_id = pp.property_id
+        LEFT JOIN permission p on p.id = pp.permission_id
+        <where>
+            <if test="userId != null">
+                AND up.user_id = #{userId}
+            </if>
+        </where>
+    </select>
+
+
+</mapper>

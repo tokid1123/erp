@@ -1,6 +1,6 @@
 package com.tokid.service;
 /*
-* @Description: TODO 登录完需要保存用户的操作权限
+* @Description:
 * @author king
 * @date 2017/11/19 11:05
 */
@@ -11,7 +11,9 @@ import com.tokid.base.customUtils.UserLoginUtils;
 import com.tokid.base.exception.ServiceException;
 import com.tokid.base.model.LoginUser;
 import com.tokid.base.service.BaseService;
+import com.tokid.base.utils.MapUtils;
 import com.tokid.base.utils.SequenceUtils;
+import com.tokid.model.Permission;
 import com.tokid.model.User;
 import com.tokid.model.UserProperty;
 import org.apache.shiro.SecurityUtils;
@@ -22,12 +24,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class UserService extends BaseService<User, Long> {
 
     @Autowired
     private UserPropertyService userPropertyService;
+    @Autowired
+    private PermissionService permissionService;
 
     public Long saveOrUpdate(User user) throws ServiceException {
         Long id = null;
@@ -70,10 +76,10 @@ public class UserService extends BaseService<User, Long> {
     }
 
     @Transactional
-    public Result login(User user) {
+    public Result login(User user) throws ServiceException {
         //判断是否为空
         if (user == null || user.getUsername() == null || "".equals(user.getUsername()) || user.getPassword() == null || "".equals(user.getPassword()))
-            return Result.createErrorResultForm(ResultEnum.LOGIN_ERROR_UN_EXIST_NAME_PASSWORD);
+            return Result.createErrorResultForm(null, ResultEnum.LOGIN_ERROR_UN_EXIST_NAME_PASSWORD);
 
         //查询
         User userSearch = new User();
@@ -83,7 +89,7 @@ public class UserService extends BaseService<User, Long> {
 
         User dataUser = selectOne(userSearch);
         if (dataUser == null)
-            return Result.createErrorResultForm(ResultEnum.LOGIN_ERROR_FALIE_NAME_PASSWORD);
+            return Result.createErrorResultForm(null, ResultEnum.LOGIN_ERROR_FALIE_NAME_PASSWORD);
 
         //获取token
         UsernamePasswordToken token = new UsernamePasswordToken(userSearch.getUsername(), userSearch.getPassword());
@@ -95,9 +101,13 @@ public class UserService extends BaseService<User, Long> {
         loginUser.setUser(dataUser);
         loginUser.setLoginTime(new Date());
 
-        //设置缓存
-        subject.getSession().setAttribute(UserLoginUtils.LOGIN_USER_SESSION_NAME,loginUser);
+        Map<String, Object> map = MapUtils.newHashMap();
+        map.put("userId",dataUser.getId());
+        List<Permission> permissionList = permissionService.getAllPermissions(map);
 
+        //设置缓存
+        subject.getSession().setAttribute(UserLoginUtils.LOGIN_USER_SESSION_NAME, loginUser);
+        subject.getSession().setAttribute(UserLoginUtils.LOGIN_USER_MENUS_NAME, permissionList);
 
         return Result.createSuccessResultForm(subject.getSession().getId(), ResultEnum.SUCCESS);
     }
