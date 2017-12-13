@@ -29,7 +29,7 @@ public class JWTOrAuthenticationFilter extends FormAuthenticationFilter {
             //原来CROS(跨域)复杂请求时会先发送一个OPTIONS请求，来测试服务器是否支持本次请求，
             // 这个请求时不带数据的，请求成功后才会发送真实的请求。所以前面那个只发送key的问题是要确认服务器支不支持接收这个header。
             // 所以每次获取不到数据的请求都是OPTIONS请求😓。所以我们要做的就是把所有的OPTIONS请求统统放行。
-            httpResponse.setHeader("Access-control-Allow-Origin", httpRequest.getHeader(CorsConfig.getInstance().getClientHostPortName()));
+            httpResponse.setHeader("Access-control-Allow-Origin", httpRequest.getHeader(CorsConfig.getInstance().getClientHostPortName()));//获取客户端表头的ip
             httpResponse.setHeader("Access-Control-Allow-Methods", CorsConfig.getInstance().getAccessControlAllowMethods());
             httpResponse.setHeader("Access-Control-Allow-Headers", CorsConfig.getInstance().getAccessControlAllowHeaders());
             httpResponse.setStatus(HttpStatus.OK.value());
