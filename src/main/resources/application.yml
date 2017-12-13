@@ -27,11 +27,21 @@ server:
     uri-encoding: UTF-8
 
 shiro:
-  tokenHeaderName: Authorization
-  accessControlAllowMethods: POST, GET, PUT, DELETE,OPTIONS
-  accessControlAllowHeaders: Authentication,Origin, X-Requested-With, Content-Type,token,Accept,Authorization
-  accessControlMaxAge: 3600
-  accessControlAllowOrigin: http://localhost:8082
+  cors:
+    tokenHeaderName: Authorization
+    clientHostPortName: XForwardedFor
+    accessControlAllowMethods: POST, GET, PUT, DELETE,OPTIONS
+    accessControlAllowHeaders: Authentication, Origin, X-Requested-With, Content-Type, token,Accept, Authorization, XForwardedFor
+    accessControlMaxAge: 3600
+    accessControlAllowOrigin: http://localhost:8082,http://localhost:8080
+
+  url:
+    login: /login
+    forbidden: /forbidden
+    logout: /logout
+    unLogin: /unLogin
+    index: /index
+    unAuthorized: /403
 
 mybatis:
   config:

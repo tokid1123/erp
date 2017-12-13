@@ -5,7 +5,7 @@ package com.tokid.base.config.shiro;
 * @date 2017/11/16 15:20
 */
 
-import com.tokid.base.config.TKConfig;
+import com.tokid.base.config.cors.CorsConfig;
 import org.apache.shiro.web.servlet.ShiroHttpServletRequest;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.apache.shiro.web.util.WebUtils;
@@ -47,7 +47,7 @@ public class SessionManager extends DefaultWebSessionManager {
             id = this.getUriPathSegmentParamValue(request, "JSESSIONID");
             if (id == null) {
                 // 获取请求头中的session
-                id = WebUtils.toHttp(request).getHeader(TKConfig.getInstance().getTokenHeaderName());
+                id = WebUtils.toHttp(request).getHeader(CorsConfig.getInstance().getTokenHeaderName());
                 if (id == null) {
                     String name = this.getSessionIdName();
                     id = request.getParameter(name);

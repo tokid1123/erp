@@ -5,12 +5,14 @@ package com.tokid.service;
 * @date 2017/11/19 11:05
 */
 
+import com.tokid.base.customUtils.UserLoginUtils;
 import com.tokid.base.exception.ServiceException;
 import com.tokid.base.service.BaseService;
 import com.tokid.base.utils.SequenceUtils;
-import com.tokid.base.customUtils.UserLoginUtils;
 import com.tokid.model.User;
 import com.tokid.model.UserProperty;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,5 +53,19 @@ public class UserService extends BaseService<User, Long> {
             count = userPropertyService.delete(userProperty);
         }
         return count;
+    }
+
+    /**
+     * 退出登录
+     * @return
+     */
+    public void logout() {
+        Subject subject = SecurityUtils.getSubject(); // 获取Subject单例对象
+        subject.logout(); // 退出
+    }
+
+    public void login() {
+        
+
     }
 }

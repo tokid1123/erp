@@ -11,7 +11,6 @@ Apache Shiro 核心通过 Filter 来实现，就好像SpringMvc 通过DispachSer
 *
 */
 
-import com.tokid.base.config.shiro.filter.JWTOrAuthenticationFilter;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
@@ -50,24 +49,27 @@ public class ShiroConfig {
         Map<String,String> filterChainDefinitionMap = new LinkedHashMap<>();
 
         //配置退出过滤器,其中的具体的退出代码Shiro已经替我们实现了
-        filterChainDefinitionMap.put("/logout", "logout");
+
+        filterChainDefinitionMap.put(ShiroUrlConfig.getInstance().getLogin(), "anon");
+        filterChainDefinitionMap.put(ShiroUrlConfig.getInstance().getLogout(), "anon");
+        filterChainDefinitionMap.put(ShiroUrlConfig.getInstance().getForbidden(), "anon");
 
         //<!-- 过滤链定义，从上向下顺序执行，一般将 /**放在最为下边 -->:这是一个坑呢，一不小心代码就不好使了;
         //<!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问-->
         filterChainDefinitionMap.put("/**", "authc");
 
         // 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
-        shiroFilterFactoryBean.setLoginUrl("/login");
+        shiroFilterFactoryBean.setLoginUrl(ShiroUrlConfig.getInstance().getUnLogin());
         // 登录成功后要跳转的链接
-        shiroFilterFactoryBean.setSuccessUrl("/index");
+        shiroFilterFactoryBean.setSuccessUrl(ShiroUrlConfig.getInstance().getIndex());
         //未授权界面;
-        shiroFilterFactoryBean.setUnauthorizedUrl("/403");
+        shiroFilterFactoryBean.setUnauthorizedUrl(ShiroUrlConfig.getInstance().getUnAuthorized());
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 
         //自定义过滤器
         Map<String, Filter> filters = new HashMap<>();
-        filters.put("authc", new JWTOrAuthenticationFilter("http://localhost:10100"));
+        filters.put("authc", new JWTOrAuthenticationFilter());
         shiroFilterFactoryBean.setFilters(filters);
         return shiroFilterFactoryBean;
     }
@@ -86,7 +88,7 @@ public class ShiroConfig {
      * (这个需要自己写，账号密码校验；权限等)
      */
     @Bean
-    public TKShiroRealm myShiroRealm(){
-        return new TKShiroRealm();
+    public MyShiroRealm myShiroRealm(){
+        return new MyShiroRealm();
     }
 }

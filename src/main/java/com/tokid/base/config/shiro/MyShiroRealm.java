@@ -12,7 +12,7 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 
-public class TKShiroRealm extends AuthorizingRealm {
+public class MyShiroRealm extends AuthorizingRealm {
 
 
     /**
