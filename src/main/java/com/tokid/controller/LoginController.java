@@ -5,13 +5,16 @@ package com.tokid.controller;
 * @date 2017/12/13 11:13
 */
 
+import com.tokid.base.cache.CacheManager;
 import com.tokid.base.customUtils.Result;
 import com.tokid.base.customUtils.ResultEnum;
+import com.tokid.base.customUtils.UserLoginUtils;
 import com.tokid.model.User;
 import com.tokid.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -29,7 +32,7 @@ public class LoginController {
             return userService.login(user);
         } catch (Exception e) {
             e.printStackTrace();
-            return Result.createErrorResultForm(null,ResultEnum.ERROR);
+            return Result.createErrorResultForm(null, ResultEnum.ERROR);
         }
     }
 
@@ -41,6 +44,20 @@ public class LoginController {
         try {
             userService.logout();
             return Result.createSuccessResultForm(ResultEnum.SUCCESS);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Result.createErrorResultForm(ResultEnum.ERROR);
+        }
+    }
+
+    //检查session是否有效
+    @RequestMapping(value = "checkSession", method = RequestMethod.GET)
+    public Object checkSession() {
+        try {
+            CacheManager cacheManager = CacheManager.getInstance();
+            String username = UserLoginUtils.getCurrentUser().getUser().getUsername();
+            String sessionId = String.valueOf(cacheManager.get(username));
+            return Result.createSuccessResultForm(sessionId, ResultEnum.CHECKSESSIONSUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
             return Result.createErrorResultForm(ResultEnum.ERROR);

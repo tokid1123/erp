@@ -49,7 +49,7 @@ public class JWTOrAuthenticationFilter extends FormAuthenticationFilter {
             LoginUser currentUser = UserLoginUtils.getCurrentUser();
             this.checkSession(currentUser.getUser().getUsername(), sessionId);
         } else {
-            throw new Exception("invalid session");
+            throw new Exception("invalid session id");
         }
 
         return super.preHandle(request, response);
@@ -59,7 +59,7 @@ public class JWTOrAuthenticationFilter extends FormAuthenticationFilter {
         CacheManager cacheManager = CacheManager.getInstance();
         String cacheSessionId = (String) cacheManager.get(name);
         if (StringUtils.isBlank(cacheSessionId) || StringUtils.isNotBlank(cacheSessionId) && !StringUtils.equals(sessionId, cacheSessionId))
-            throw new Exception("invalid session");
+            throw new Exception("invalid session id");
     }
 
     private void isAuthorized(ServletRequest request, ServletResponse response) {

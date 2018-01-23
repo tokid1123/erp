@@ -97,7 +97,7 @@ public class UserService extends BaseService<User, Long> {
 
         Subject subject = SecurityUtils.getSubject(); // 获取Subject单例对象
         SecurityUtils.getSubject().getSession().setTimeout(604800000);//设置session有效期7天
-        SecurityUtils.getSubject().getSession().setTimeout(10000);//设置session有效期7天
+        //SecurityUtils.getSubject().getSession().setTimeout(10000);//设置session有效期7天
         subject.login(token); // 登陆
         //设置session对象
         LoginUser loginUser = new LoginUser();
