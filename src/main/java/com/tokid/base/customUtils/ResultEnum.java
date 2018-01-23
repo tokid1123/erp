@@ -7,7 +7,7 @@ package com.tokid.base.customUtils;
 
 public enum ResultEnum {
 
-    ERROR(0, "请求失败"), SUCCESS(200, "请求成功"),CHECKSESSIONSUCCESS(200,"session有效"),
+    ERROR(0, "请求失败"), SUCCESS(200, "请求成功"),CHECKSESSIONSUCCESS(200,"session有效"),LOGOUTSECCESS(200,"退出登录"),
     SYSTEM_ERROR(10001, "系统错误"),LOGIN_ERROR_UN_EXIST_NAME_PASSWORD(10003,"用户名或者密码为空"),
     LOGIN_ERROR_FALIE_NAME_PASSWORD(10004,"用户名或者密码为错误"),FORBIDDEN(10403,"无权限访问");
 

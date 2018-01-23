@@ -32,7 +32,7 @@ public class LoginController {
             return userService.login(user);
         } catch (Exception e) {
             e.printStackTrace();
-            return Result.createErrorResultForm(null, ResultEnum.ERROR);
+            return Result.createErrorResultForm(null);
         }
     }
 
@@ -43,10 +43,10 @@ public class LoginController {
     public Object logout() {
         try {
             userService.logout();
-            return Result.createSuccessResultForm(ResultEnum.SUCCESS);
+            return Result.createSuccessResultForm(ResultEnum.LOGOUTSECCESS.getMsg());
         } catch (Exception e) {
             e.printStackTrace();
-            return Result.createErrorResultForm(ResultEnum.ERROR);
+            return Result.createErrorResultForm(null);
         }
     }
 
@@ -60,7 +60,7 @@ public class LoginController {
             return Result.createSuccessResultForm(sessionId, ResultEnum.CHECKSESSIONSUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
-            return Result.createErrorResultForm(ResultEnum.ERROR);
+            return Result.createErrorResultForm(null);
         }
     }
 
