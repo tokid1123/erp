@@ -5,7 +5,11 @@ package com.tokid.base.config.shiro;
 * @date 2017/11/16 16:00
 */
 
+import com.tokid.base.cache.CacheManager;
 import com.tokid.base.config.cors.CorsConfig;
+import com.tokid.base.customUtils.UserLoginUtils;
+import com.tokid.base.model.LoginUser;
+import com.tokid.base.utils.StringUtils;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.apache.shiro.web.util.WebUtils;
 import org.springframework.http.HttpStatus;
@@ -37,12 +41,25 @@ public class JWTOrAuthenticationFilter extends FormAuthenticationFilter {
         }
         //判断有没有登录和权限
         boolean isLogin = super.preHandle(request, response);
+        //判断session是否是
+        String sessionId = httpRequest.getSession().getId();
+
         //为正值的时候判断是否
-        if(isLogin){
-            this.isAuthorized(request,response);
+        if (isLogin) {
+            LoginUser currentUser = UserLoginUtils.getCurrentUser();
+            this.checkSession(currentUser.getUser().getUsername(), sessionId);
+        } else {
+            throw new Exception("invalid session");
         }
 
         return super.preHandle(request, response);
+    }
+
+    private void checkSession(String name, String sessionId) throws Exception {
+        CacheManager cacheManager = CacheManager.getInstance();
+        String cacheSessionId = (String) cacheManager.get(name);
+        if (StringUtils.isBlank(cacheSessionId) || StringUtils.isNotBlank(cacheSessionId) && !StringUtils.equals(sessionId, cacheSessionId))
+            throw new Exception("invalid session");
     }
 
     private void isAuthorized(ServletRequest request, ServletResponse response) {

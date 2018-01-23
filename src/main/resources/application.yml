@@ -2,7 +2,7 @@ spring:
   # 数据源配置
   datasource:
     name: test
-    url: jdbc:mysql://192.168.0.127:3306/manage
+    url: jdbc:mysql://192.168.0.122:3306/manage
     username: root
     password: 123456
     type: com.alibaba.druid.pool.DruidDataSource
@@ -34,6 +34,8 @@ shiro:
     accessControlAllowHeaders: Authentication, Origin, X-Requested-With, Content-Type, token,Accept, Authorization, XForwardedFor
     accessControlMaxAge: 3600
     accessControlAllowOrigin: http://localhost:8082,http://localhost:8080
+
+#2592000   30天
 
   url:
     login: /login

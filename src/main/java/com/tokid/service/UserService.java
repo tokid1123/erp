@@ -5,6 +5,7 @@ package com.tokid.service;
 * @date 2017/11/19 11:05
 */
 
+import com.tokid.base.cache.CacheManager;
 import com.tokid.base.customUtils.Result;
 import com.tokid.base.customUtils.ResultEnum;
 import com.tokid.base.customUtils.UserLoginUtils;
@@ -95,6 +96,8 @@ public class UserService extends BaseService<User, Long> {
         UsernamePasswordToken token = new UsernamePasswordToken(userSearch.getUsername(), userSearch.getPassword());
 
         Subject subject = SecurityUtils.getSubject(); // 获取Subject单例对象
+        SecurityUtils.getSubject().getSession().setTimeout(604800000);//设置session有效期7天
+        SecurityUtils.getSubject().getSession().setTimeout(10000);//设置session有效期7天
         subject.login(token); // 登陆
         //设置session对象
         LoginUser loginUser = new LoginUser();
@@ -108,6 +111,9 @@ public class UserService extends BaseService<User, Long> {
         //设置缓存
         subject.getSession().setAttribute(UserLoginUtils.LOGIN_USER_SESSION_NAME, loginUser);
         subject.getSession().setAttribute(UserLoginUtils.LOGIN_USER_MENUS_NAME, permissionList);
+
+        CacheManager cacheManager =  CacheManager.getInstance();
+        cacheManager.put(user.getUsername(),subject.getSession().getId());
 
         return Result.createSuccessResultForm(subject.getSession().getId(), ResultEnum.SUCCESS);
     }
