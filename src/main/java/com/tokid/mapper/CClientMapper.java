@@ -15,5 +15,5 @@ import java.util.Map;
 
 public interface CClientMapper extends BaseMapper<CClient> {
 
-    List<Permission> getAllClient(Map<String, Object> map) throws ServiceException;
+    List<Map<String, Object>> getClientList(Map<String, Object> map) throws ServiceException;
 }

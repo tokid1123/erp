@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tokid.mapper.CClientMapper">
+
+    <select id="getClientList" parameterType="map" resultType="map">
+
+        SELECT c.* FROM dbo.bmt_keh c
+        LEFT JOIN dbo.amt_user_kh uc ON uc.keh_j = c.keh_j
+        LEFT JOIN dbo.amt_user u ON u.user_en = uc.user_n
+
+        <where>
+
+            <if test="clientName != null">
+                AND CONTAINS(c.keh_j,#{clientName})
+            </if>
+
+            <if test="username != null">
+                AND u.user_en = #{username}
+            </if>
+
+        </where>
+    </select>
+
+
+</mapper>

@@ -48,8 +48,8 @@ public class CClientController {
         try {
             Map <String, Object> map = MapUtils.newHashMap();
             map.put("username", UserLoginUtils.getCurrentUsername());
-            map.put("", "");//搜索条件
-            result = Result.createSuccessResultForm(cClientService.getAllClient(map), ResultEnum.SUCCESS);
+            map.put("clientName", body.get("clientName"));//搜索条件
+            result = Result.createSuccessResultForm(cClientService.getClientList(map), ResultEnum.SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
             result = Result.createErrorResultForm(ResultEnum.ERROR);
