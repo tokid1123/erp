@@ -8,8 +8,8 @@ package com.tokid.base.config.shiro;
 import com.tokid.base.cache.CacheManager;
 import com.tokid.base.config.cors.CorsConfig;
 import com.tokid.base.customUtils.UserLoginUtils;
-import com.tokid.base.model.LoginUser;
 import com.tokid.base.utils.StringUtils;
+import com.tokid.model.CUser;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.apache.shiro.web.util.WebUtils;
 import org.springframework.http.HttpStatus;
@@ -46,8 +46,7 @@ public class JWTOrAuthenticationFilter extends FormAuthenticationFilter {
 
         //为正值的时候判断是否
         if (isLogin) {
-            LoginUser currentUser = UserLoginUtils.getCurrentUser();
-            this.checkSession(currentUser.getUser().getUsername(), sessionId);
+            this.checkSession(UserLoginUtils.getCurrentUsername(), sessionId);
         } else {
             throw new Exception("invalid session id");
         }

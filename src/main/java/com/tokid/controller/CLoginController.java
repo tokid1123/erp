@@ -1,16 +1,16 @@
 package com.tokid.controller;
 /*
-* @Description:
+* @Description: TODO
 * @author king
-* @date 2017/12/13 11:13
+* @date 2018/1/24 10:55
 */
 
 import com.tokid.base.cache.CacheManager;
 import com.tokid.base.customUtils.Result;
 import com.tokid.base.customUtils.ResultEnum;
 import com.tokid.base.customUtils.UserLoginUtils;
-import com.tokid.model.User;
-import com.tokid.service.UserService;
+import com.tokid.model.CUser;
+import com.tokid.service.CUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,18 +18,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class LoginController {
+public class CLoginController {
 
     @Autowired
-    private UserService userService;
+    private CUserService cUserService;
 
     /**
      * 登录
      */
     @RequestMapping("/login")
-    public Object login(@RequestBody User user) {
+    public Object login(@RequestBody CUser user) {
         try {
-            return userService.login(user);
+            return cUserService.login(user);
         } catch (Exception e) {
             e.printStackTrace();
             return Result.createErrorResultForm(null);
@@ -42,7 +42,7 @@ public class LoginController {
     @RequestMapping(value = "/logout")
     public Object logout() {
         try {
-            userService.logout();
+            cUserService.logout();
             return Result.createSuccessResultForm(ResultEnum.LOGOUTSECCESS.getMsg());
         } catch (Exception e) {
             e.printStackTrace();
@@ -51,11 +51,11 @@ public class LoginController {
     }
 
     //检查session是否有效
-    @RequestMapping(value = "checkSession", method = RequestMethod.GET)
+    @RequestMapping(value = "/checkSession", method = RequestMethod.GET)
     public Object checkSession() {
         try {
             CacheManager cacheManager = CacheManager.getInstance();
-            String username = UserLoginUtils.getCurrentUser().getUser().getUsername();
+            String username = UserLoginUtils.getCurrentUsername();
             String sessionId = String.valueOf(cacheManager.get(username));
             return Result.createSuccessResultForm(sessionId, ResultEnum.CHECKSESSIONSUCCESS);
         } catch (Exception e) {
@@ -63,5 +63,4 @@ public class LoginController {
             return Result.createErrorResultForm(null);
         }
     }
-
 }

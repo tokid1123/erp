@@ -17,7 +17,7 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
-public class MapUtils extends org.apache.commons.collections.MapUtils {
+public class MapUtils  {
     private MapUtils() {
     }
 
@@ -65,12 +65,12 @@ public class MapUtils extends org.apache.commons.collections.MapUtils {
         return map;
     }
 
-    public static <K, V> boolean containsKey(Map<K, V> map, K key) {
-        if (MapUtils.isNotEmpty(map)) {
-            return map.containsKey(key);
-        }
-        return false;
-    }
+    //public static <K, V> boolean containsKey(Map<K, V> map, K key) {
+    //    if (MapUtils.isNotEmpty(map)) {
+    //        return map.containsKey(key);
+    //    }
+    //    return false;
+    //}
 
     /**
      * 将符合【one=1,two=2,three=3】格式的字符串分割成为一个Map对象
@@ -194,18 +194,18 @@ public class MapUtils extends org.apache.commons.collections.MapUtils {
      * @param map
      * @return
      */
-    public static <E, K, V> List<Map<String, Object>> toList(Map<K, V> map) {
-        List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-        if (MapUtils.isEmpty(map))
-            return list;
-        for (K key : map.keySet()) {
-            Map<String, Object> obj = new HashMap<String, Object>();
-            obj.put("key", key);
-            obj.put("value", map.get(key));
-            list.add(obj);
-        }
-        return list;
-    }
+    //public static <E, K, V> List<Map<String, Object>> toList(Map<K, V> map) {
+    //    List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+    //    if (MapUtils.isEmpty(map))
+    //        return list;
+    //    for (K key : map.keySet()) {
+    //        Map<String, Object> obj = new HashMap<String, Object>();
+    //        obj.put("key", key);
+    //        obj.put("value", map.get(key));
+    //        list.add(obj);
+    //    }
+    //    return list;
+    //}
 
     /**
      * 对象转Map
@@ -490,14 +490,14 @@ public class MapUtils extends org.apache.commons.collections.MapUtils {
      * @param keys
      * @return
      */
-    @SuppressWarnings("unchecked")
-    public static <K, V> List<V> getValues(Map<K, V> map, K... keys) {
-        ArrayList<V> values = new ArrayList<V>();
-        for (K key : keys) {
-            values.add((V) MapUtils.getObject(map, key));
-        }
-        return values;
-    }
+    //@SuppressWarnings("unchecked")
+    //public static <K, V> List<V> getValues(Map<K, V> map, K... keys) {
+    //    ArrayList<V> values = new ArrayList<V>();
+    //    for (K key : keys) {
+    //        values.add((V) MapUtils.getObject(map, key));
+    //    }
+    //    return values;
+    //}
 
     /**
      * 从Map中移除一些Key
@@ -506,13 +506,13 @@ public class MapUtils extends org.apache.commons.collections.MapUtils {
      * @param keys
      *            需要移除的Key
      */
-    public static <K, V> void remove(Map<K, V> map, K... keys) {
-        if (MapUtils.isEmpty(map))
-            return;
-        for (K k : keys) {
-            map.remove(k);
-        }
-    }
+    //public static <K, V> void remove(Map<K, V> map, K... keys) {
+    //    if (MapUtils.isEmpty(map))
+    //        return;
+    //    for (K k : keys) {
+    //        map.remove(k);
+    //    }
+    //}
 
     /**
      * 从Map中获取List对象
@@ -622,7 +622,7 @@ public class MapUtils extends org.apache.commons.collections.MapUtils {
         Map<String, String> map = MapUtils.split(source, null);
         Map<String, String> map2 = MapUtils.split(source2);
         System.out.println(map2);
-        System.out.println(MapUtils.toList(map));
+        //System.out.println(MapUtils.toList(map));
         System.out.println(MapUtils.fromArray(new Object[] { "1231", 123, "123123", 1231 }));
     }
 }
