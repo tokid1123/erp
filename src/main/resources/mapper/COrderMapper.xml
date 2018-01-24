@@ -5,12 +5,12 @@
     <select id="getClientList" parameterType="map" resultType="map">
 
         SELECT c.* FROM dbo.amt_user_kh uc
-        LEFT JOIN dbo.bmt_keh c ON uc.keh_j = c.keh_j
+        LEFT JOIN dbo.btr_dind o ON uc.keh_j = o.keh_j
 
         <where>
 
-            <if test="clientName != null">
-                AND c.keh_j like ('%'+ #{clientName} + '%')
+            <if test="orderPO != null">
+                AND o.keh_po like ('%'+ #{orderPO} + '%')
             </if>
 
             <if test="username != null">

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tokid.mapper.CClientMapper">
+<mapper namespace="com.tokid.mapper.CModelInfoMapper">
 
-    <select id="getClientList" parameterType="map" resultType="map">
+    <select id="getModelInfoList" parameterType="map" resultType="map">
 
-        SELECT c.* FROM dbo.amt_user_kh uc
-        LEFT JOIN dbo.bmt_keh c ON uc.keh_j = c.keh_j
+        SELECT m.* FROM  dbo.amt_user_kh uc
+        LEFT JOIN dbo.bmt_pingm m ON uc.keh_j = m.keh_j
 
         <where>
 
-            <if test="clientName != null">
-                AND c.keh_j like ('%'+ #{clientName} + '%')
+            <if test="productName != null">
+                AND m.pingm like ('%'+ #{productName} + '%')
             </if>
 
             <if test="username != null">
