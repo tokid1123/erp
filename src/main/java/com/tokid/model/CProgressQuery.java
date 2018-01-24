@@ -1,6 +1,6 @@
 package com.tokid.model;
 /*
-* @Description: TODO
+* @Description: 进度查询表
 * @author king
 * @date 2018/1/24 16:24
 */
