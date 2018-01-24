@@ -6,16 +6,15 @@
 
         SELECT c.* FROM dbo.bmt_keh c
         LEFT JOIN dbo.amt_user_kh uc ON uc.keh_j = c.keh_j
-        LEFT JOIN dbo.amt_user u ON u.user_en = uc.user_n
 
         <where>
 
             <if test="clientName != null">
-                AND CONTAINS(c.keh_j,#{clientName})
+                AND c.keh_j like ('%'+ #{clientName} + '%')
             </if>
 
             <if test="username != null">
-                AND u.user_en = #{username}
+                AND uc.user_n = #{username}
             </if>
 
         </where>
