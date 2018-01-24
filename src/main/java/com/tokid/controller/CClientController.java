@@ -33,7 +33,8 @@ public class CClientController {
         Result<?> result;
         try {
             CClient client = body.tryGet(CClient.class);
-            result = Result.createSuccessResultForm(cClientService.selectOne(client), ResultEnum.SUCCESS);
+            client = cClientService.selectOne(client);
+            result = Result.createSuccessResultForm(client, ResultEnum.SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
             result = Result.createErrorResultForm(ResultEnum.ERROR);

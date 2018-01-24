@@ -1,6 +1,6 @@
 package com.tokid.model;
 /*
-* @Description: TODO
+* @Description: 客户表
 * @author king
 * @date 2018/1/24 13:20
 */
@@ -23,7 +23,7 @@ public class CClient implements Serializable {
     private String groupName;//分组名称
 
     @Column(name = "keh_bh")
-    private String code;//客户代码
+    private String clientCode;//客户代码
 
     @Column(name = "keh_j")
     private String name;//客户名称
@@ -46,8 +46,8 @@ public class CClient implements Serializable {
     @Column(name = "yuej_dt")
     private Short monthly;//月结日
 
-    @Column(name = "keh_q_qs")
-    private String wholeName;//客户全程
+    @Column(name = "keh_q_gs")
+    private String wholeName;//客户全称
 
     @Column(name = "keh_dzh_gs")
     private String address;//客户地址
@@ -92,12 +92,12 @@ public class CClient implements Serializable {
         this.groupName = groupName;
     }
 
-    public String getCode() {
-        return code;
+    public String getClientCode() {
+        return clientCode;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setClientCode(String clientCode) {
+        this.clientCode = clientCode;
     }
 
     public String getName() {
