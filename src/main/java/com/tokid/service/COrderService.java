@@ -21,8 +21,8 @@ public class COrderService extends BaseService<COrder, Long> {
     @Autowired
     private COrderMapper cOrderMapper;
 
-    public List<Map<String, Object>> getOrderList(Map<String, Object> map) throws ServiceException{
-        return cOrderMapper.getOrderList(map);
+    public List<Map<String, Object>> getList(Map<String, Object> map) throws ServiceException{
+        return cOrderMapper.getList(map);
     }
 
 }

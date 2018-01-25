@@ -14,6 +14,6 @@ import java.util.Map;
 
 public interface COrderMapper extends BaseMapper<COrder>{
 
-    List<Map<String, Object>> getOrderList(Map<String, Object> map) throws ServiceException;
+    List<Map<String, Object>> getList(Map<String, Object> map) throws ServiceException;
 
 }

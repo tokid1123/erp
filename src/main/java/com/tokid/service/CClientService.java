@@ -22,8 +22,8 @@ public class CClientService extends BaseService<CClient, Long> {
     @Autowired
     private CClientMapper cClientMapper;
 
-    public List<Map<String, Object>> getClientList(Map<String, Object> map) throws ServiceException{
-        List<Map<String, Object>> list = cClientMapper.getClientList(map);
+    public List<Map<String, Object>> getList(Map<String, Object> map) throws ServiceException{
+        List<Map<String, Object>> list = cClientMapper.getList(map);
         return list;
     }
 }

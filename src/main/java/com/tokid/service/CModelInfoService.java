@@ -21,8 +21,8 @@ public class CModelInfoService extends BaseService<CModelInfo,Long> {
     @Autowired
     private CModelInfoMapper cModelInfoMapper;
 
-     public List<Map<String, Object>> getModelInfoList(Map<String, Object> map) throws ServiceException {
-        return cModelInfoMapper.getModelInfoList(map);
+     public List<Map<String, Object>> getList(Map<String, Object> map) throws ServiceException {
+        return cModelInfoMapper.getList(map);
     }
 
 }

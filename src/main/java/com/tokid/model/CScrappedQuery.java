@@ -16,7 +16,7 @@ public class CScrappedQuery implements Serializable{
 
 
     @Column(name = "id_wanch_b")
-    private String bId;//id_wanch_b
+    private String id;//id_wanch_b
 
     @Column(name = "id_wanch_m")
     private String mId;//id_wanch_m
@@ -51,12 +51,12 @@ public class CScrappedQuery implements Serializable{
     @Column(name = "qued_j")
     private String qued_j;//qued_j
 
-    public String getbId() {
-        return bId;
+    public String getId() {
+        return id;
     }
 
-    public void setbId(String bId) {
-        this.bId = bId;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getmId() {

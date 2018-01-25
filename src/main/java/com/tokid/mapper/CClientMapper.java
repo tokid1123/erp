@@ -8,12 +8,11 @@ package com.tokid.mapper;
 import com.tokid.base.exception.ServiceException;
 import com.tokid.base.mapper.BaseMapper;
 import com.tokid.model.CClient;
-import com.tokid.model.Permission;
 
 import java.util.List;
 import java.util.Map;
 
 public interface CClientMapper extends BaseMapper<CClient> {
 
-    List<Map<String, Object>> getClientList(Map<String, Object> map) throws ServiceException;
+    List<Map<String, Object>> getList(Map<String, Object> map) throws ServiceException;
 }

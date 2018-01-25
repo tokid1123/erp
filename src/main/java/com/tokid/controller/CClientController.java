@@ -33,7 +33,7 @@ public class CClientController {
         Result<?> result;
         try {
             CClient client = body.tryGet(CClient.class);
-            client = cClientService.selectOne(client);
+            client = cClientService.selectOne(client);//客户id   id_keh
             result = Result.createSuccessResultForm(client, ResultEnum.SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
@@ -42,14 +42,14 @@ public class CClientController {
         return result;
     }
 
-    @RequestMapping("/getClientList")
-    public Object getClientList(@RequestBody JsonRequestBody body) {
+    @RequestMapping("/getList")
+    public Object getList(@RequestBody JsonRequestBody body) {
         Result<?> result;
         try {
             Map <String, Object> map = MapUtils.newHashMap();
             map.put("username", UserLoginUtils.getCurrentUsername());
             map.put("clientName", body.get("clientName"));//搜索条件:客户名称
-            result = Result.createSuccessResultForm(cClientService.getClientList(map), ResultEnum.SUCCESS);
+            result = Result.createSuccessResultForm(cClientService.getList(map), ResultEnum.SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
             result = Result.createErrorResultForm(ResultEnum.ERROR);
