@@ -6,6 +6,7 @@ package com.tokid.controller;
 */
 
 import com.tokid.base.cache.CacheManager;
+import com.tokid.base.customUtils.JsonRequestBody;
 import com.tokid.base.customUtils.Result;
 import com.tokid.base.customUtils.ResultEnum;
 import com.tokid.base.customUtils.UserLoginUtils;
@@ -27,8 +28,9 @@ public class CLoginController {
      * 登录
      */
     @RequestMapping("/login")
-    public Object login(@RequestBody CUser user) {
+    public Object login(@RequestBody JsonRequestBody body) {
         try {
+            CUser user = body.tryGet(CUser.class);
             return cUserService.login(user);
         } catch (Exception e) {
             e.printStackTrace();
