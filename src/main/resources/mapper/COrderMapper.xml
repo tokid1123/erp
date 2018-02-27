@@ -9,8 +9,32 @@
 
         <where>
 
-            <if test="orderPO != null">
-                AND o.keh_po like ('%'+ #{orderPO} + '%')
+            <if test="keh_po != null">
+                AND o.keh_po like ('%'+ #{keh_po} + '%')
+            </if>
+
+            <if test="id_dind_b != null">
+                AND o.id_dind_b like ('%'+ #{id_dind_b} + '%')
+            </if>
+
+            <if test="id_dind_m != null">
+                AND o.id_dind_m like ('%'+ #{id_dind_m} + '%')
+            </if>
+
+            <if test="keh_j != null">
+                AND o.keh_j like ('%'+ #{keh_j} + '%')
+            </if>
+
+            <if test="pingm_bh != null">
+                AND o.pingm_bh like ('%'+ #{pingm_bh} + '%')
+            </if>
+
+            <if test="pingm != null">
+                AND o.pingm like ('%'+ #{pingm} + '%')
+            </if>
+
+            <if test="liaoh != null">
+                AND o.liaoh like ('%'+ #{liaoh} + '%')
             </if>
 
             <if test="username != null">

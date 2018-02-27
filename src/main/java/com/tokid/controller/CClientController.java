@@ -48,7 +48,13 @@ public class CClientController {
         try {
             Map <String, Object> map = MapUtils.newHashMap();
             map.put("username", UserLoginUtils.getCurrentUsername());
-            map.put("clientName", body.get("clientName"));//搜索条件:客户名称
+            map.put("keh_j", body.get("keh_j"));//搜索条件:客户名称
+            map.put("keh_bh", body.get("keh_bh"));//客户代码
+            map.put("yewy", body.get("yewy"));//业务员
+            map.put("keh_q_gs", body.get("keh_q_gs"));//客户全称
+            map.put("weny", body.get("weny"));//文员
+            map.put("hezuo_lb", body.get("hezuo_lb"));//合作方式
+            map.put("keh_j_2", body.get("keh_j_2"));//客户简称2
             result = Result.createSuccessResultForm(cClientService.getList(map), ResultEnum.SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();

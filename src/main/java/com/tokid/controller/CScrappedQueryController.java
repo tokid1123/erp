@@ -49,7 +49,12 @@ public class CScrappedQueryController {
         try {
             Map<String, Object> map = MapUtils.newHashMap();
             map.put("username", UserLoginUtils.getCurrentUsername());
-            map.put("clientName", body.get("clientName"));//搜索条件:客户名称
+            map.put("keh_j", body.get("keh_j"));//搜索条件:客户名称
+            map.put("id_wanch_b", body.get("id_wanch_b"));//搜索条件:id
+            map.put("pingm_bh", body.get("pingm_bh"));//产品编号
+            map.put("pingm", body.get("pingm"));//产品名称
+            map.put("liaoh", body.get("liaoh"));//物料编号
+            map.put("bum_j", body.get("bum_j"));//工序
             result = Result.createSuccessResultForm(cScrappedQueryService.getList(map), ResultEnum.SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();

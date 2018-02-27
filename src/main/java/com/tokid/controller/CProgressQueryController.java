@@ -48,7 +48,14 @@ public class CProgressQueryController {
         try {
             Map<String, Object> map = MapUtils.newHashMap();
             map.put("username", UserLoginUtils.getCurrentUsername());
-            map.put("clientName", body.get("clientName"));//搜索条件:客户名称
+            map.put("keh_j", body.get("keh_j"));//搜索条件:客户名称
+            map.put("id_bum", body.get("id_bum"));//bum_ID
+            map.put("chn1_wf2", body.get("chn1_wf2"));//本厂或者外发
+            map.put("shch_bh", body.get("shch_bh"));//指令号
+            map.put("bum_j", body.get("bum_j"));//工序
+            map.put("pingm_bh", body.get("pingm_bh"));//产品编号
+            map.put("pingm", body.get("pingm"));//产品名称
+            map.put("liaoh", body.get("liaoh"));//物料编号
             result = Result.createSuccessResultForm(cProgressQueryService.getList(map), ResultEnum.SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();

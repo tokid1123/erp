@@ -47,7 +47,13 @@ public class COrderController {
         try {
             Map<String, Object> map = MapUtils.newHashMap();
             map.put("username", UserLoginUtils.getCurrentUsername());
-            map.put("orderPO", body.get("orderPO"));//搜索条件：订单PO
+            map.put("keh_po", body.get("keh_po"));//搜索条件：订单PO
+            map.put("id_dind_b", body.get("id_dind_b"));//搜索条件：订单id
+            map.put("id_dind_m", body.get("id_dind_m"));//搜索条件：型号id
+            map.put("keh_j", body.get("keh_j"));//搜索条件：客户名称
+            map.put("pingm_bh", body.get("pingm_bh"));//搜索条件：产品编号
+            map.put("pingm", body.get("pingm"));//搜索条件：产品名称
+            map.put("liaoh", body.get("liaoh"));//搜索条件：物料编号
             result = Result.createSuccessResultForm(cOrderService.getList(map), ResultEnum.SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();

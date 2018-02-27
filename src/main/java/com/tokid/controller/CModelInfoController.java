@@ -48,7 +48,12 @@ public class CModelInfoController {
         try {
             Map<String, Object> map = MapUtils.newHashMap();
             map.put("username", UserLoginUtils.getCurrentUsername());
-            map.put("productName", body.get("productName"));//搜索条件
+            map.put("pingm", body.get("pingm"));//产品名称
+            map.put("id_pingm", body.get("id_pingm"));//型号id
+            map.put("pingm_bh", body.get("pingm_bh"));//产品编号
+            map.put("liaoh", body.get("liaoh"));//物料编码
+            map.put("keh_j", body.get("keh_j"));//客户名称
+            map.put("caizh", body.get("caizh"));//材质
             result = Result.createSuccessResultForm(cModelInfoService.getList(map), ResultEnum.SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();

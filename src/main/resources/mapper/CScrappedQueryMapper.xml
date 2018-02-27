@@ -9,8 +9,8 @@
 
         <where>
 
-            <if test="clientName != null">
-                AND s.keh_j like ('%'+ #{clientName} + '%')
+            <if test="keh_j != null">
+                AND s.keh_j like ('%'+ #{keh_j} + '%')
             </if>
 
             <if test="username != null">

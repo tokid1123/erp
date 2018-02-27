@@ -9,8 +9,28 @@
 
         <where>
 
-            <if test="productName != null">
-                AND m.pingm like ('%'+ #{productName} + '%')
+            <if test="pingm != null">
+                AND m.pingm like ('%'+ #{pingm} + '%')
+            </if>
+
+            <if test="id_pingm != null">
+                AND m.id_pingm like ('%'+ #{id_pingm} + '%')
+            </if>
+
+            <if test="pingm_bh != null">
+                AND m.pingm_bh like ('%'+ #{pingm_bh} + '%')
+            </if>
+
+            <if test="liaoh != null">
+                AND m.liaoh like ('%'+ #{liaoh} + '%')
+            </if>
+
+            <if test="keh_j != null">
+                AND m.keh_j like ('%'+ #{keh_j} + '%')
+            </if>
+
+            <if test="caizh != null">
+                AND m.caizh like ('%'+ #{caizh} + '%')
             </if>
 
             <if test="username != null">

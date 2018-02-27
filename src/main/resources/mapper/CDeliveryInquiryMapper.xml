@@ -9,8 +9,32 @@
 
         <where>
 
-            <if test="clientName != null">
-                AND d.keh_j like ('%'+ #{clientName} + '%')
+            <if test="keh_j != null">
+                AND d.keh_j like ('%'+ #{keh_j} + '%')
+            </if>
+
+            <if test="id_chpch_m != null">
+                AND d.id_chpch_m like ('%'+ #{id_chpch_m} + '%')
+            </if>
+
+            <if test="chpch_bh != null">
+                AND d.chpch_bh like ('%'+ #{chpch_bh} + '%')
+            </if>
+
+            <if test="pingm_bh != null">
+                AND d.pingm_bh like ('%'+ #{pingm_bh} + '%')
+            </if>
+
+            <if test="pingm != null">
+                AND d.pingm like ('%'+ #{pingm} + '%')
+            </if>
+
+            <if test="liaoh != null">
+                AND d.liaoh like ('%'+ #{liaoh} + '%')
+            </if>
+
+            <if test="keh_po != null">
+                AND d.keh_po like ('%'+ #{keh_po} + '%')
             </if>
 
             <if test="username != null">

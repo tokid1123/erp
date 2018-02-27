@@ -48,7 +48,13 @@ public class CDeliveryController {
         try {
             Map<String, Object> map = MapUtils.newHashMap();
             map.put("username", UserLoginUtils.getCurrentUsername());
-            map.put("clientName", body.get("clientName"));//搜索条件:客户名称
+            map.put("keh_j", body.get("keh_j"));//搜索条件:客户名称
+            map.put("id_chpch_m", body.get("id_chpch_m"));//型号id
+            map.put("chpch_bh", body.get("chpch_bh"));//送货单号
+            map.put("pingm_bh", body.get("pingm_bh"));//产品编码
+            map.put("pingm", body.get("pingm"));//产品名称
+            map.put("liaoh", body.get("liaoh"));//物料编号
+            map.put("keh_po", body.get("keh_po"));//订单PO
             result = Result.createSuccessResultForm(cDeliveryInquiryService.getList(map), ResultEnum.SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
