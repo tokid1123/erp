@@ -11,6 +11,7 @@ import com.tokid.base.customUtils.ResultEnum;
 import com.tokid.base.customUtils.UserLoginUtils;
 import com.tokid.base.exception.ServiceException;
 import com.tokid.base.service.BaseService;
+import com.tokid.model.CLoginUser;
 import com.tokid.model.CUser;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -56,13 +57,17 @@ public class CUserService extends BaseService<CUser, Long>{
         //SecurityUtils.getSubject().getSession().setTimeout(10000);//设置session有效期7天
         subject.login(token); // 登陆
 
+        CLoginUser loginUser = new CLoginUser();
+        loginUser.setUser(dataUser);
+        loginUser.setToken(String.valueOf(subject.getSession().getId()));
+
         //设置缓存,将登陆的用户存到session中
         subject.getSession().setAttribute(UserLoginUtils.LOGIN_USER_SESSION_NAME, dataUser);
 
         CacheManager cacheManager =  CacheManager.getInstance();
         cacheManager.put(user.getUsername(),subject.getSession().getId());
 
-        return Result.createSuccessResultForm(subject.getSession().getId(), ResultEnum.SUCCESS);
+        return Result.createSuccessResultForm(loginUser, ResultEnum.SUCCESS);
     }
 
 }

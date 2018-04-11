@@ -5,6 +5,7 @@ package com.tokid.base.customUtils;
 * @date 2017/11/24 15:10
 */
 
+import com.tokid.model.CLoginUser;
 import com.tokid.model.CUser;
 import org.apache.shiro.SecurityUtils;
 
@@ -17,8 +18,8 @@ public class UserLoginUtils {
      * 得到当前登陆人
      * @return
      */
-    public static final CUser getCurrentUser(){
-        return  (CUser) SecurityUtils.getSubject().getSession().getAttribute(LOGIN_USER_SESSION_NAME);
+    public static final CLoginUser getCurrentUser(){
+        return  (CLoginUser) SecurityUtils.getSubject().getSession().getAttribute(LOGIN_USER_SESSION_NAME);
     }
 
     /**
@@ -26,6 +27,6 @@ public class UserLoginUtils {
      * @return
      */
     public static final String getCurrentUsername(){
-        return getCurrentUser().getUsername().trim();
+        return getCurrentUser().getUser().getUsername().trim();
     }
 }
