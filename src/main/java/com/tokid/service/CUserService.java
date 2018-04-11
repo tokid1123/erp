@@ -62,7 +62,7 @@ public class CUserService extends BaseService<CUser, Long>{
         loginUser.setToken(String.valueOf(subject.getSession().getId()));
 
         //设置缓存,将登陆的用户存到session中
-        subject.getSession().setAttribute(UserLoginUtils.LOGIN_USER_SESSION_NAME, dataUser);
+        subject.getSession().setAttribute(UserLoginUtils.LOGIN_USER_SESSION_NAME, loginUser);
 
         CacheManager cacheManager =  CacheManager.getInstance();
         cacheManager.put(user.getUsername(),subject.getSession().getId());
