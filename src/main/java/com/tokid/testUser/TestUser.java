@@ -4,7 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Table;
 import java.io.Serializable;
 
-@Table(name = "test_user")
+@Table(name = "dbo.test_user")
 public class TestUser implements Serializable {
 
     @Column(name = "id")

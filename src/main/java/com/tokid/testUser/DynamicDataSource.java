@@ -3,19 +3,20 @@ package com.tokid.testUser;
 import com.tokid.base.exception.ServiceException;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.log4j.Logger;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 
 import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.Map;
-@Configuration
+
+
 public class DynamicDataSource extends AbstractRoutingDataSource {
     private Logger log = Logger.getLogger(this.getClass());
 
-//    @Autowired
-//    private CenterDatebaseManager centerDatebaseManager;
+    @Autowired
+    private KUserService userService;
     // 默认数据源，也就是主库
     protected DataSource masterDataSource;
     // 保存动态创建的数据源
@@ -103,14 +104,15 @@ public class DynamicDataSource extends AbstractRoutingDataSource {
         // 先切换回主库
         Dbs.setDbType("dataSource");
         // 查询所需信息
-//        CenterDatebase datebase = centerDatebaseManager.getById(dbtype);
+        KUser user = (KUser) SecurityUtils.getSubject().getPrincipal();
+        user = userService.selectOne(user);
         // 切换回目标库
         Dbs.setDbType(oriType);
 
-//        String url = "jdbc:sqlserver://" + "120.79.32.10" + ":1433"
-//                + ";DatabaseName=" + datebase.getDatabaseName();
-//        BasicDataSource dataSource = createDataSource(url,datebase.getUserName(),datebase.getPassword());
-        return null;
+        String url = "jdbc:sqlserver://" + "120.79.32.10" + ":1433"
+                + ";DatabaseName=" + user.getDbname();
+        BasicDataSource dataSource = createDataSource(url,user.getUsername(),user.getPassword());
+        return dataSource;
     }
 
     //创建SQLServer数据源
