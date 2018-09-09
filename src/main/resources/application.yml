@@ -2,9 +2,9 @@ spring:
   # 数据源配置
   datasource:
     name: test
-    url: jdbc:sqlserver://121.33.200.154:1433;DatabaseName=my_app
+    url: jdbc:sqlserver://120.79.32.10:1433;DatabaseName=my_app
     username: sa
-    password: ABC123!@#
+    password: macroYEE123
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
     filters: stat, wall
