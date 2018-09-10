@@ -6,6 +6,8 @@ package com.tokid.base.config.mybatis;
 */
 
 import com.github.pagehelper.PageHelper;
+import com.tokid.base.utils.MapUtils;
+import com.tokid.dynamic.DynamicDataSource;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -15,20 +17,23 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.TransactionManagementConfigurer;
 
 import javax.sql.DataSource;
+import java.util.Map;
 import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
 @ConfigurationProperties(prefix = "mybatis.config")//注入yml属性值
-public class MyBatisConfig implements TransactionManagementConfigurer{
+public class MyBatisConfig{
 
     @Autowired
-    DataSource firstDataSource;
+    private DataSource firstDataSource;
 
     private String typeAliasesPackage;
 
@@ -75,10 +80,15 @@ public class MyBatisConfig implements TransactionManagementConfigurer{
         }
     }
 
-    @Override
-    public PlatformTransactionManager annotationDrivenTransactionManager() {
-        return null;
-    }
+//    @Bean
+//    public AbstractRoutingDataSource dynamicDataSource() {
+//        return new DynamicDataSource(firstDataSource);
+//    }
+
+//    @Bean
+//    public PlatformTransactionManager annotationDrivenTransactionManager() {
+//        return new DataSourceTransactionManager(dynamicDataSource());
+//    }
 
     public String getTypeAliasesPackage() {
         return typeAliasesPackage;

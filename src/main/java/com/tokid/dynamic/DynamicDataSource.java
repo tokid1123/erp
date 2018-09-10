@@ -1,6 +1,7 @@
 package com.tokid.dynamic;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.tokid.base.utils.MapUtils;
 import com.tokid.base.utils.StringUtils;
 import com.tokid.model.CDataSource;
 import org.apache.ibatis.datasource.DataSourceException;
@@ -27,16 +28,17 @@ public class DynamicDataSource extends AbstractRoutingDataSource {
 
     public static final Map<Object, Object> datasourcePoolMap = new HashMap<>();
 
-    public DynamicDataSource(DataSource defaultTargetDataSource, Map<Object, Object> targetDataSources) {
-        super.setTargetDataSources(targetDataSources);
-        super.afterPropertiesSet();
+    public DynamicDataSource(DataSource defaultTargetDataSource) {
+        Map<Object, Object> map = MapUtils.newHashMap();
+        map.put("first",defaultTargetDataSource);
+        super.setTargetDataSources(map);
     }
 
     protected Object determineCurrentLookupKey() {
         logger.info("database changed to:{}",DataSourceContextHolder.getDataSourceName());
         String key = DataSourceContextHolder.getDataSourceName();
         if(StringUtils.isBlank(key)){
-            key = "default";
+            key = "first";
         }
         return key;
     }
@@ -93,10 +95,6 @@ public class DynamicDataSource extends AbstractRoutingDataSource {
 //        DataSourceContextHolder.setDataSourceType(dbName);
             logger.info("-------------->动态添加数据源，数据源数："+datasourcePoolMap.size());
         }
-    }
-
-    @Override
-    public void afterPropertiesSet(){
     }
 
 }
