@@ -1,4 +1,4 @@
-package com.tokid.dynamic;
+package com.tokid.model;
 
 
 import javax.persistence.Column;
@@ -10,8 +10,6 @@ import java.io.Serializable;
  */
 @Table(name = "dbo.amt_user_db")
 public class CDataSource implements Serializable {
-
-    private static final long serialVersionUID = 3641364594136065148L;
 
     public Integer getId() {
         return id;

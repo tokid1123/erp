@@ -9,9 +9,13 @@ import com.tokid.base.cache.CacheManager;
 import com.tokid.base.config.cors.CorsConfig;
 import com.tokid.base.customUtils.UserLoginUtils;
 import com.tokid.base.utils.StringUtils;
-import com.tokid.model.CUser;
+import com.tokid.dynamic.CDataSourceService;
+import com.tokid.dynamic.DataSourceContextHolder;
+import com.tokid.dynamic.DynamicDataSource;
+import com.tokid.model.CDataSource;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.apache.shiro.web.util.WebUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -21,6 +25,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class JWTOrAuthenticationFilter extends FormAuthenticationFilter {
+
+    @Autowired
+    private DynamicDataSource dynamicDataSource;
+    @Autowired
+    private CDataSourceService dataSourceService;
 
     public JWTOrAuthenticationFilter() {
 
@@ -39,19 +48,27 @@ public class JWTOrAuthenticationFilter extends FormAuthenticationFilter {
             httpResponse.setStatus(HttpStatus.OK.value());
             return false;
         }
-        //判断有没有登录和权限
+        //判断有没有登录和以及session是否有效
         boolean isLogin = super.preHandle(request, response);
-        //判断session是否是
-        String sessionId = httpRequest.getSession().getId();
-
-        //为正值的时候判断是否
         if (isLogin) {
+            String sessionId = httpRequest.getSession().getId();
             this.checkSession(UserLoginUtils.getCurrentUsername(), sessionId);
         } else {
             throw new Exception("invalid session id");
         }
+        //切换数据库
+        CDataSource cDataSource = dataSourceService.selectById(UserLoginUtils.getDBID());
+        dynamicDataSource.addDatasource(cDataSource);
+        DataSourceContextHolder.setDataSourceType(cDataSource.getDbName());
 
         return super.preHandle(request, response);
+    }
+
+    @Override
+    public void afterCompletion(ServletRequest request, ServletResponse response, Exception exception) throws Exception {
+
+
+        super.afterCompletion(request, response, exception);
     }
 
     private void checkSession(String name, String sessionId) throws Exception {
@@ -61,7 +78,4 @@ public class JWTOrAuthenticationFilter extends FormAuthenticationFilter {
             throw new Exception("invalid session id");
     }
 
-    private void isAuthorized(ServletRequest request, ServletResponse response) {
-
-    }
 }

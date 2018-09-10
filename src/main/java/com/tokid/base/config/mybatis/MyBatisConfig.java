@@ -28,7 +28,7 @@ import java.util.Properties;
 public class MyBatisConfig implements TransactionManagementConfigurer{
 
     @Autowired
-    DataSource dataSource;
+    DataSource firstDataSource;
 
     private String typeAliasesPackage;
 
@@ -48,7 +48,7 @@ public class MyBatisConfig implements TransactionManagementConfigurer{
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
 
         //设置数据源
-        sqlSessionFactoryBean.setDataSource(dataSource);
+        sqlSessionFactoryBean.setDataSource(firstDataSource);
         //设置Model 路径
         sqlSessionFactoryBean.setTypeAliasesPackage(typeAliasesPackage);
 

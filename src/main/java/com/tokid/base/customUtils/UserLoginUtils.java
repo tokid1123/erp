@@ -29,4 +29,13 @@ public class UserLoginUtils {
     public static final String getCurrentUsername(){
         return getCurrentUser().getUser().getUsername().trim();
     }
+
+    /**
+     * 获取当前用户所用的数据库id
+     */
+    public static final  Integer getDBID(){
+        return getCurrentUser().getUser().getDbId();
+    }
+
+
 }
