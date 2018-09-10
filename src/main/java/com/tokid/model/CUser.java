@@ -49,6 +49,17 @@ public class CUser implements Serializable {
     @Column(name = "qx_chanl")
     private Short chanl;
 
+    @Column(name = "db_id")
+    private Integer dbId;
+
+    public Integer getDbId() {
+        return dbId;
+    }
+
+    public void setDbId(Integer dbId) {
+        this.dbId = dbId;
+    }
+
     public String getUsername() {
         return username;
     }

@@ -1,11 +1,10 @@
-package com.tokid.testUser;
+package com.tokid.dynamic;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import org.apache.ibatis.datasource.DataSourceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 
 import java.util.HashMap;
@@ -21,7 +20,7 @@ public class DynamicDataSource extends AbstractRoutingDataSource {
     Logger logger = LoggerFactory.getLogger(DynamicDataSource.class);
 
     @Autowired
-    private DynamicDataSourceDao dynamicDataSourceDao;
+    private CDataSourceService cDataSourceService;
 
     public static final Map<Object, Object> datasourcePoolMap = new HashMap<>();
 
@@ -39,38 +38,41 @@ public class DynamicDataSource extends AbstractRoutingDataSource {
     public void initDataSouce(){
         logger.info("-------------->开始初始化加载创建动态数据源...");
         //获取所有数据源配置信息
-        List<AdminDataSource> dataSourceList = dynamicDataSourceDao.listAdminDataSource();
-        for(AdminDataSource adminDataSource : dataSourceList) {
+        List<CDataSource> dataSourceList = cDataSourceService.selectAll();
+        for(CDataSource cDataSource : dataSourceList) {
             //
             DruidDataSource DruidDataSource = new DruidDataSource();
             try {
-                DruidDataSource.setDriverClassName(adminDataSource.getDriverClassName());
-                DruidDataSource.setUrl(adminDataSource.getUrl());
-                DruidDataSource.setUsername(adminDataSource.getUsername());
-                DruidDataSource.setPassword(adminDataSource.getPassword());
+                DruidDataSource.setDriverClassName(cDataSource.getDriverClassName());
+                DruidDataSource.setUrl(cDataSource.getUrl());
+                DruidDataSource.setUsername(cDataSource.getUsername());
+                DruidDataSource.setPassword(cDataSource.getPassword());
                 //
-                DruidDataSource.setInitialSize(adminDataSource.getInitialSize());
-                DruidDataSource.setMinIdle(adminDataSource.getMinIdle());
-                DruidDataSource.setMaxActive(adminDataSource.getMaxActive());
+                DruidDataSource.setInitialSize(cDataSource.getInitialSize());
+                DruidDataSource.setMinIdle(cDataSource.getMinIdle());
+                DruidDataSource.setMaxActive(cDataSource.getMaxActive());
 
             } catch (DataSourceException e) {
                 e.printStackTrace();
             }
-            datasourcePoolMap.put(adminDataSource.getDatasourceName(), DruidDataSource);
+            datasourcePoolMap.put(cDataSource.getDbName(), DruidDataSource);
 
         }
         this.setTargetDataSources(datasourcePoolMap);
         logger.info("-------------->初始化加载创建动态数据源完毕，加载数："+datasourcePoolMap.size());
     }
 
-    public void addDatasource(String dbName, String username, String password){
+    public void addDatasource(String dbName, String username, String password, String url){
         DruidDataSource dataSource = new DruidDataSource();
-        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://127.0.0.1:3306/" + dbName);
+//        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+//        dataSource.setUrl("jdbc:mysql://127.0.0.1:3306/" + dbName);
+        dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        dataSource.setUrl("jdbc:sqlserver://" + url);
         dataSource.setUsername(username);
         dataSource.setPassword(password);
         datasourcePoolMap.put(dbName, dataSource);
         this.setTargetDataSources(datasourcePoolMap);
+//        DataSourceContextHolder.setDataSourceType(dbName);
         logger.info("-------------->动态添加数据源，数据源数："+datasourcePoolMap.size());
     }
 

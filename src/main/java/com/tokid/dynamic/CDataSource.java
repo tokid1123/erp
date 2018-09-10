@@ -1,22 +1,41 @@
-package com.tokid.testUser;
+package com.tokid.dynamic;
 
+
+import javax.persistence.Column;
+import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
  * Created by ZHAOTING001 on 2017/2/23.
  */
-public class AdminDataSource implements Serializable{
+@Table(name = "dbo.amt_user_db")
+public class CDataSource implements Serializable {
 
     private static final long serialVersionUID = 3641364594136065148L;
 
-    private String datasourceName;
+    public Integer getId() {
+        return id;
+    }
 
-    private String driverClassName;
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
+    @Column(name = "id")
+    private Integer id;
+
+    @Column(name = "db_name")
+    private String dbName;
+
+    private String driverClassName = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+
+    @Column(name = "url")
     private String url;
 
+    @Column(name = "username")
     private String username;
 
+    @Column(name = "password")
     private String password;
 
     private int initialSize=1;
@@ -25,12 +44,12 @@ public class AdminDataSource implements Serializable{
 
     private int maxActive=10;
 
-    public String getDatasourceName() {
-        return datasourceName;
+    public String getDbName() {
+        return dbName;
     }
 
-    public void setDatasourceName(String datasourceName) {
-        this.datasourceName = datasourceName;
+    public void setDbName(String dbName) {
+        this.dbName = dbName;
     }
 
     public String getDriverClassName() {
@@ -42,7 +61,7 @@ public class AdminDataSource implements Serializable{
     }
 
     public String getUrl() {
-        return url;
+        return "jdbc:sqlserver://" + url;
     }
 
     public void setUrl(String url) {

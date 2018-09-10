@@ -1,4 +1,4 @@
-package com.tokid.testUser;
+package com.tokid.dynamic;
 
 /**
  * Created by ZHAOTING001 on 2017/2/23.
