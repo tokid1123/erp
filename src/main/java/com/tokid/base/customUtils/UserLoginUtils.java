@@ -33,7 +33,7 @@ public class UserLoginUtils {
     /**
      * 获取当前用户所用的数据库id
      */
-    public static final  Integer getDBID(){
+    public static final  String getDBID(){
         return getCurrentUser().getUser().getDbId();
     }
 

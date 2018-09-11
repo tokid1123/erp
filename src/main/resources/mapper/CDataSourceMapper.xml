@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tokid.mapper.CDataSourceMapper">
+
+    <select id="getList" parameterType="map" resultType="map">
+
+        SELECT c.id, c.url, c.db_name dbName, c.username, c.password FROM dbo.amt_user_db c
+
+        <where>
+            <if test="id != null">
+                AND c.id = #{id}
+            </if>
+
+        </where>
+    </select>
+
+
+</mapper>

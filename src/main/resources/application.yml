@@ -36,22 +36,17 @@ shiro:
     unAuthorized: /403
 
 mybatis:
-  config:
-    # Mybatis model 路径
-    typeAliasesPackage: tk.mapper.model,com.tokid.model
-    reasonable: true
-    supportMethodsArguments: true
-    returnPageInfo: check
-    params: count=countSql
-    # Mybatis mapper xml 路径
-    mapperLocations: classpath:mapper/*.xml
-    # Mybatis mapper interface 路径
-    basePackage: com.tokid.mapper
-    # 通用 mapper 接口
-    mappers: tk.mybatis.mapper.common.Mapper
-    # 主键自增全局配置
-    identity: MYSQL
-    logImpl: STDOUT_LOGGING
+  # Mybatis model 路径
+  typeAliasesPackage: tk.mapper.model,com.tokid.model
+  # Mybatis mapper xml 路径
+  mapperLocations: classpath:mapper/*.xml
+  # Mybatis mapper interface 路径
+  basePackage: com.tokid.mapper
+  # 通用 mapper 接口
+  mappers: tk.mybatis.mapper.common.Mapper
+  # 主键自增全局配置
+  identity: MYSQL
+  logImpl: STDOUT_LOGGING
 
 logging:
   level:

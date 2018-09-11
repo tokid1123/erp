@@ -50,13 +50,13 @@ public class CUser implements Serializable {
     private Short chanl;
 
     @Column(name = "db_id")
-    private Integer dbId;
+    private String dbId;
 
-    public Integer getDbId() {
+    public String getDbId() {
         return dbId;
     }
 
-    public void setDbId(Integer dbId) {
+    public void setDbId(String dbId) {
         this.dbId = dbId;
     }
 

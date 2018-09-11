@@ -3,6 +3,7 @@ package com.tokid.model;
 
 import javax.persistence.Column;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.io.Serializable;
 
 /**
@@ -11,20 +12,21 @@ import java.io.Serializable;
 @Table(name = "dbo.amt_user_db")
 public class CDataSource implements Serializable {
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
     @Column(name = "id")
-    private Integer id;
+    private String id;
 
     @Column(name = "db_name")
     private String dbName;
 
+    @Transient
     private String driverClassName = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
 
     @Column(name = "url")
@@ -36,10 +38,13 @@ public class CDataSource implements Serializable {
     @Column(name = "password")
     private String password;
 
+    @Transient
     private int initialSize=1;
 
+    @Transient
     private int minIdle=1;
 
+    @Transient
     private int maxActive=10;
 
     public String getDbName() {
