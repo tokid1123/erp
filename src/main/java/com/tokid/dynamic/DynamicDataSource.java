@@ -15,10 +15,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by ZHAOTING001 on 2017/2/23.
- */
-
 public class DynamicDataSource extends AbstractRoutingDataSource {
 
     Logger logger = LoggerFactory.getLogger(DynamicDataSource.class);
@@ -26,19 +22,19 @@ public class DynamicDataSource extends AbstractRoutingDataSource {
 //    @Autowired
 //    private CDataSourceService cDataSourceService;
 
+    public static final String MASTERDB = "master";
+
     public static final Map<Object, Object> datasourcePoolMap = new HashMap<>();
 
-    public DynamicDataSource(DataSource defaultTargetDataSource) {
-        Map<Object, Object> map = MapUtils.newHashMap();
-        map.put("first",defaultTargetDataSource);
-        super.setTargetDataSources(map);
+    public DynamicDataSource() {
+
     }
 
     protected Object determineCurrentLookupKey() {
         logger.info("database changed to:{}",DataSourceContextHolder.getDataSourceName());
         String key = DataSourceContextHolder.getDataSourceName();
         if(StringUtils.isBlank(key)){
-            key = "first";
+            key = this.MASTERDB;
         }
         return key;
     }
@@ -92,7 +88,6 @@ public class DynamicDataSource extends AbstractRoutingDataSource {
             }
             datasourcePoolMap.put(cDataSource.getDbName(), druidDataSource);
             this.setTargetDataSources(datasourcePoolMap);
-//        DataSourceContextHolder.setDataSourceType(dbName);
             logger.info("-------------->动态添加数据源，数据源数："+datasourcePoolMap.size());
         }
     }

@@ -1,10 +1,10 @@
 spring:
   # 数据源配置
   datasource:
-    name: test
-    url: jdbc:sqlserver://120.79.32.10:1433;DatabaseName=my_app
-    username: sa
-    password: macroYEE123
+    master:
+      url: jdbc:sqlserver://120.79.32.10:1433;DatabaseName=my_app
+      username: sa
+      password: macroYEE123
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
     filters: stat, wall
@@ -27,17 +27,6 @@ server:
     uri-encoding: UTF-8
 
 shiro:
-  cors:
-    tokenHeaderName: Authorization
-    clientHostPortName: XForwardedFor
-    accessControlAllowMethods: POST, GET, PUT, DELETE,OPTIONS
-    accessControlAllowHeaders: Authentication, Origin, X-Requested-With, Content-Type, token,Accept, Authorization, XForwardedFor
-    accessControlMaxAge: 3600
-    accessControlAllowOrigin: http://localhost:8082,http://localhost:8080
-    accessControllAllowCredentials: true
-
-#2592000   30天
-
   url:
     login: /login
     forbidden: /forbidden

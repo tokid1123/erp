@@ -5,6 +5,7 @@ package com.tokid.base.config.mybatis;
 * @date 2017/11/17 16:28
 */
 
+import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 import com.github.pagehelper.PageHelper;
 import com.tokid.base.utils.MapUtils;
 import com.tokid.dynamic.DynamicDataSource;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -24,6 +26,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.TransactionManagementConfigurer;
 
 import javax.sql.DataSource;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
@@ -31,9 +34,6 @@ import java.util.Properties;
 @EnableTransactionManagement
 @ConfigurationProperties(prefix = "mybatis.config")//注入yml属性值
 public class MyBatisConfig{
-
-    @Autowired
-    private DataSource firstDataSource;
 
     private String typeAliasesPackage;
 
@@ -53,7 +53,7 @@ public class MyBatisConfig{
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
 
         //设置数据源
-        sqlSessionFactoryBean.setDataSource(firstDataSource);
+        sqlSessionFactoryBean.setDataSource(dynamicDataSource());
         //设置Model 路径
         sqlSessionFactoryBean.setTypeAliasesPackage(typeAliasesPackage);
 
@@ -80,15 +80,26 @@ public class MyBatisConfig{
         }
     }
 
-//    @Bean
-//    public AbstractRoutingDataSource dynamicDataSource() {
-//        return new DynamicDataSource(firstDataSource);
-//    }
+    @Bean
+    @Primary
+    @ConfigurationProperties(prefix = "spring.datasource.master")
+    public DataSource dbMaster() {
+        return DruidDataSourceBuilder.create().build();
+    }
 
-//    @Bean
-//    public PlatformTransactionManager annotationDrivenTransactionManager() {
-//        return new DataSourceTransactionManager(dynamicDataSource());
-//    }
+    @Bean
+    public AbstractRoutingDataSource dynamicDataSource() {
+        DynamicDataSource dataSource = new DynamicDataSource();
+        dataSource.setDefaultTargetDataSource(dbMaster());
+        DynamicDataSource.datasourcePoolMap.put(DynamicDataSource.MASTERDB, dbMaster());
+        dataSource.setTargetDataSources(DynamicDataSource.datasourcePoolMap);
+        return dataSource;
+    }
+
+    @Bean
+    public PlatformTransactionManager annotationDrivenTransactionManager() {
+        return new DataSourceTransactionManager(dynamicDataSource());
+    }
 
     public String getTypeAliasesPackage() {
         return typeAliasesPackage;

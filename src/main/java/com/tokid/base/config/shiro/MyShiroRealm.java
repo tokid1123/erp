@@ -1,6 +1,6 @@
 package com.tokid.base.config.shiro;
 /*
-* @Description:
+* @Description:暂没用到
 * @author king
 * @date 2017/11/15 15:22
 */

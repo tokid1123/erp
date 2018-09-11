@@ -15,6 +15,7 @@ import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -37,6 +38,25 @@ public class ShiroConfig {
      3、部分过滤器可指定参数，如perms，roles
      *
      */
+
+    @Value("${shiro.url.login}")
+    private String login;
+
+    @Value("${shiro.url.forbidden}")
+    private String forbidden;
+
+    @Value("${shiro.url.logout}")
+    private String logout;
+
+    @Value("${shiro.url.unLogin}")
+    private String unLogin;
+
+    @Value("${shiro.url.index}")
+    private String index;
+
+    @Value("${shiro.url.unAuthorized}")
+    private String unAuthorized;
+
     @Bean
     public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager){
         //System.out.println("ShiroConfiguration.shirFilter()");
@@ -52,20 +72,20 @@ public class ShiroConfig {
 
         //配置退出过滤器,其中的具体的退出代码Shiro已经替我们实现了
 
-        filterChainDefinitionMap.put(ShiroUrlConfig.getInstance().getLogin(), "anon");
-        filterChainDefinitionMap.put(ShiroUrlConfig.getInstance().getLogout(), "anon");
-        filterChainDefinitionMap.put(ShiroUrlConfig.getInstance().getForbidden(), "anon");
+        filterChainDefinitionMap.put(login, "anon");
+        filterChainDefinitionMap.put(logout, "anon");
+        filterChainDefinitionMap.put(forbidden, "anon");
 
         //<!-- 过滤链定义，从上向下顺序执行，一般将 /**放在最为下边 -->:这是一个坑呢，一不小心代码就不好使了;
         //<!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问-->
         filterChainDefinitionMap.put("/**", "authc");
 
         // 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
-        shiroFilterFactoryBean.setLoginUrl(ShiroUrlConfig.getInstance().getUnLogin());
+        shiroFilterFactoryBean.setLoginUrl(unLogin);
         // 登录成功后要跳转的链接
-        shiroFilterFactoryBean.setSuccessUrl(ShiroUrlConfig.getInstance().getIndex());
+        shiroFilterFactoryBean.setSuccessUrl(index);
         //未授权界面;
-        shiroFilterFactoryBean.setUnauthorizedUrl(ShiroUrlConfig.getInstance().getUnAuthorized());
+        shiroFilterFactoryBean.setUnauthorizedUrl(unAuthorized);
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 
